@@ -1,4 +1,10 @@
 from django.contrib import admin
-class whatever():
-    pass
+
+from .models import Cart
+
+
+admin.site.register(Cart)
+
+
+
 # Register your models here.
