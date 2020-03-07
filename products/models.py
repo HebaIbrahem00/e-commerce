@@ -1,4 +1,5 @@
 from django.db import models
+# from user.models import User
 
 class Category(models.Model):
     cat_name = models.CharField(max_length=50)
@@ -20,3 +21,8 @@ class Product(models.Model):
     product_amount = models.IntegerField()
     product_rate = models.IntegerField()
     product_ratedby = models.IntegerField()
+    image1 = models.ImageField(upload_to="product_imgs",default="empty.jpg")
+    image2 = models.ImageField(upload_to="product_imgs",default="empty.jpg")
+    image3 = models.ImageField(upload_to="product_imgs",default="empty.jpg")
+
+    
