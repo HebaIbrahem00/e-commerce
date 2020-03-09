@@ -15,12 +15,12 @@ class User(models.Model):
     image = models.ImageField(upload_to="user_imgs")
 
     def _str_(self):
-        # pass
         return self.firstName
 
 class Favourite(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    
     class Meta:
         unique_together =  ['user', 'product']
 

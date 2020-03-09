@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% if product_details %}
+    <div>
+            <img src="{{ product_details.image1.url }}">
+            <ul>
+                <li>product name: {{ product_details.product_name }}</li>
+                <li>Brand Name: {{product_details.brand.brand_name}}</li>
+                <li>amount in store : {{product_details.product_amount}}</li>
+                <li>Rate: {{product_details.product_rate}}</li>
+                <li>Price: {{product_details.product_price}}</li>
+            </ul>
+    </div>
+    {% else %}
+    <p>No Such Product.</p>
+    {% endif %}
+</body>
+</html>

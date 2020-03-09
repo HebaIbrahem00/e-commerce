@@ -4,11 +4,14 @@ from . import views
 
 urlpatterns = [
     # ex: /products/
-    path('', views.displayAllProducts, name='displayAllProducts'),
+    path('', views.display_home_page, name='displayAllProducts'),
     # ex: /products/5/
     path('cat/<int:cat_id>', views.displayCatDetails, name='displayCatDetails'),
+    path('sub_cat/<int:sub_category_id>', views.displaySubCatDetails, name='displayCatDetails'),
     path('brand/<int:brand_id>', views.displayBrandDetails, name='displayBrandDetails'),
     path('product/<int:product_id>', views.displayProductDetails, name='displayProductDetails'),
+    path('search/', views.displaySearchPage, name='displaysearchPage'),
+    path('shop/', views.display_shop_page, name='displaysearchPage'),
     # path(r'*[a-z]', views.displayAllProducts, name='displayAllProducts'),
 
     
