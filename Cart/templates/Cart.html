@@ -1,0 +1,39 @@
+
+{% extends 'base.html' %}
+
+
+
+{% block content%}
+
+    <div style="text-align: center;font-size: xx-large;color:blueviolet;font-style: italic;font-family: fantasy;">
+        Welcome to your Cart
+    </div>
+  
+    <div class="table-responsive  d-inline-flex p-2 text-center" style="margin-left: 300x; " >
+        
+        <table class="table table-bordered"  style="margin-left:300px;margin-right:300px;" >
+            
+            <thead class="thead-dark">
+            <tr>
+                <th>Product Name</th>
+                <th>Product Image</th>
+                <th>Date added</th>
+                <th>  </th>
+            </tr>
+               </thead>
+               <tbody class="table-hover"> 
+                {% for p in userCart %}
+            <tr>
+                <td> {{ p.cartProduct.get_name }} </td>
+                <td> <Image src= {{ p.cartProduct.image1 }} > <Image/></td>
+                <td>{{ p.addingDate }}</td>
+                <td> <button> Remove</button> <button> Buy Now </button></td>
+            </tr>
+            
+
+               {% endfor %}
+
+            </tbody>
+        </table>
+      </div>
+{% endblock %}
