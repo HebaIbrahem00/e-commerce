@@ -36,15 +36,37 @@
                         Categories
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        {% if latest_cat_list %}
-                        {% for cat in latest_cat_list %}
+                        {% if cat_list %}
+                        {% for cat in cat_list %}
                         <a class="dropdown-item" href="/products/cat/{{ cat.id }}">{{cat.cat_name}}</a>
                         {% endfor %}
                         {% endif %}
-                        <!-- <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a> -->
-                        <!-- <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a> -->
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Sub Categories
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        {% if sub_cat_list %}
+                        {% for sub_cat in sub_cat_list %}
+                        <a class="dropdown-item" href="/products/sub_cat/{{ sub_cat.id }}">{{sub_cat}}</a>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Brands
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        {% if brands_list %}
+                        {% for brand in brands_list %}
+                        <a class="dropdown-item" href="/products/brand/{{ brand.id }}">{{brand}}</a>
+                        {% endfor %}
+                        {% endif %}
                     </div>
                 </li>
                 <li class="nav-item">
@@ -71,7 +93,7 @@
                     <div class="card-body">
                         <h5 class="card-title" style="font-weight: bold;"> {{ product.product_name }}</h5>
                         <p class="card-text">${{ product.product_price }}</p>
-                        <a href="/products/product/{{ product.id }}" class="btn btn-primary">Add To Cart!</a>
+                        <a href="/products/product/{{ product.id }}" class="btn btn-primary">Details!!</a>
                     </div>
                 </div>
             </div>
