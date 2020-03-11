@@ -1,10 +1,15 @@
 from django import forms
-from .models import Product
+from user.models import Comments
+from user.models import Reviews
 
-class ContactForm(forms.Form):
-    name = forms.CharField()
-    message = forms.CharField(widget=forms.Textarea)
 
-    def send_email(self):
-        # send email using the self.cleaned_data dictionary
-        pass
+class CommentsForm(forms.ModelForm):
+    class Meta:
+        model = Comments
+        fields = ['Comment']
+
+
+class ReviewsForm(forms.ModelForm):
+    class Meta:
+        model = Reviews
+        fields = ['Review']
