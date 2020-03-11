@@ -71,8 +71,8 @@ def displaySubCatDetails(request, sub_category_id):
     cat_list = Category.objects.all()
     sub_cat_list = Sub_Category.objects.all()
     brands_list = Brand.objects.all()
-    sub_cat_name = Sub_Category.objects.get(id=sub_category_id)
-    brands_for_this_sub_cat= Brand.objects.filter(sub_cat=sub_category_id)
+    sub_cat = Sub_Category.objects.get(id=sub_category_id)
+    brands_for_this_sub_cat = Brand.objects.filter(sub_cat=sub_category_id)
 
 
     join_condition = 'join products_brand on brand_id = products_brand.id join products_sub_category on sub_cat_id = products_sub_category.id '
@@ -88,7 +88,7 @@ def displaySubCatDetails(request, sub_category_id):
         'sub_cat_list':sub_cat_list,
         'brands_list':brands_list,
         'has_collapse_menu':'true',
-        'sub_cat_name' : sub_cat_name,
+        'sub_cat' : sub_cat,
         'brands_for_this_sub_cat' : brands_for_this_sub_cat
         }
     return HttpResponse(template.render(context, request))
@@ -97,6 +97,8 @@ def displayBrandDetails(request, brand_id):
     cat_list = Category.objects.all()
     sub_cat_list = Sub_Category.objects.all()
     brands_list = Brand.objects.all()
+    brand = Brand.objects.get(id=brand_id)
+
 
     search_product_list = Product.objects.filter(brand_id=brand_id)
     print(search_product_list)
@@ -106,6 +108,8 @@ def displayBrandDetails(request, brand_id):
         'cat_list':cat_list,
         'sub_cat_list':sub_cat_list,
         'brands_list':brands_list,
+        'has_collapse_menu':'true',
+        'brand' : brand,
         }
     return HttpResponse(template.render(context, request))
     # return HttpResponse("You're looking for Brand %s." % brand_id)
@@ -122,24 +126,59 @@ def displayProductDetails(request, product_id):
         return HttpResponse("You're looking for non existing product" )
 
 def displaySearchPage(request):
-    cat_list = Category.objects.all()
-    sub_cat_list = Sub_Category.objects.all()
-    brands_list = Brand.objects.all()
+    if request.method == "GET":
+        cat_list = Category.objects.all()
+        sub_cat_list = Sub_Category.objects.all()
+        brands_list = Brand.objects.all()
+        
 
-    product_name = request.GET.get('product_name')
-    search_product_list = Product.objects.filter(product_name__icontains=product_name)
-    paginator = Paginator(search_product_list, 5)
+        table = ' products_product '
+        brand_join_cond = ' join products_brand on brand_id = products_brand.id '
+        sub_cat_join_cond = ' join products_sub_category on sub_cat_id = products_sub_category.id  '
+        cat_join_cond = ' join products_category on cat_id = products_category.id '
+        condition = ' WHERE 1'
+        product_name = ""
 
-    page_number = request.GET.get('page')
-    search_product_list = paginator.get_page(page_number)
-    context = {
-        'search_product_list': search_product_list,
-        'product_name':product_name,
-        'cat_list':cat_list,
-        'sub_cat_list':sub_cat_list,
-        'brands_list':brands_list,
+        if request.GET.get('product_name'):
+            product_name = request.GET.get('product_name')
+            condition += ' AND products_product.product_name like "%%'+product_name+ '%%"' 
+        if request.GET.get('cat_id'):
+            cat_id = request.GET.get('cat_id')
+            condition += ' AND products_category.id = %s ' % cat_id
+        if request.GET.get('sub_cat_id'):
+            sub_cat_id = request.GET.get('sub_cat_id')
+            condition += ' AND products_sub_category.id = %s ' % sub_cat_id
+        if request.GET.get('brand_id'):
+            brand_id = request.GET.get('brand_id')
+            condition += ' AND products_brand.id = %s ' % brand_id
+        if request.GET.get('min_price'):
+            min_price = request.GET.get('min_price')
+            condition += ' AND products_product.product_price >= %s ' % min_price
+        if request.GET.get('max_price'):
+            max_price = request.GET.get('max_price')
+            condition += ' AND products_product.product_price <= %s ' % max_price
+        if request.GET.get('order'):
+            order = request.GET.get('order')
+            condition += ' ORDER BY %s ' % order
+
+        query = 'SELECT * from '+table+brand_join_cond+sub_cat_join_cond+cat_join_cond+condition
+        print(query)
+        search_product_list = Product.objects.raw(query)
+
+
+        # search_product_list = Product.objects.filter(product_name__icontains=product_name)
+        paginator = Paginator(search_product_list, 5)
+        page_number = request.GET.get('page')
+        search_product_list = paginator.get_page(page_number)
+        context = {
+            'search_product_list' : search_product_list,
+            'product_name' : product_name,
+            'cat_list' : cat_list,
+            'sub_cat_list' : sub_cat_list,
+            'brands_list' : brands_list,
+            'serach_mode' : 'true'
         }
-    return render(request, 'products/search.html', context)
+        return render(request, 'products/search.html', context)
 
 def display_shop_page(request):
     search_product_list = Product.objects.all()
