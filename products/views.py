@@ -115,15 +115,41 @@ def displayBrandDetails(request, brand_id):
     # return HttpResponse("You're looking for Brand %s." % brand_id)
 
 def displayProductDetails(request, product_id):
-    try:
-        product_details = Product.objects.get(pk=product_id)
-        template = loader.get_template('products/item.html')
-        context = {
-            'product_details': product_details,
-        }
-        return HttpResponse(template.render(context, request))
+     try:
+    product = get_object_or_404(Product, id=product_id)
+    #product = Product.objects.get(id=product_id)
+    #user = User.objects.get(id=request.user.id)
+    user = get_object_or_404(User, id=request.user.id)
+    template = 'products/ItemPage.html'
+    if request.method == 'POST':
+        form = CommentsForm(request.POST)
+        if form.is_valid():
+            new_form = form.save(commit=False)
+            new_form.user = user
+            new_form.product = product
+            new_form.save()
+        review_form = ReviewsForm(request.POST)
+        if review_form.is_valid():
+            new_reveiw_form = review_form.save(commit=False)
+            new_reveiw_form.user = user
+            new_reveiw_form.product = product
+            new_reveiw_form.save()
+    else:
+        form = CommentsForm()
+        review_form = ReviewsForm()
+
+   # all_comments = product.objects.all()
+    context = {
+        'form':  form,
+        'product_details': product,
+        'review_form':review_form,
+        #'all_comments': all_comments,
+    }
+    return render(request, template, context)
     except Product.DoesNotExist:
         return HttpResponse("You're looking for non existing product" )
+
+
 
 def displaySearchPage(request):
     if request.method == "GET":
