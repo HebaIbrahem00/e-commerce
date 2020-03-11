@@ -13,3 +13,9 @@ class ReviewsForm(forms.ModelForm):
     class Meta:
         model = Reviews
         fields = ['Review']
+        
+        
+class AddToCartForm(forms.ModelForm):
+    class Meta:
+        model = Cart
+        fields = ['quantity']
