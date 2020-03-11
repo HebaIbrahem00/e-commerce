@@ -11,7 +11,7 @@ class Category(models.Model):
 class Sub_Category(models.Model):
     cat = models.ForeignKey(Category, on_delete=models.CASCADE)
     sub_cat_name = models.CharField(max_length=50)
-    sub_cat_img = models.ImageField(upload_to="subcat_imgs",default="empty.jpg")
+    sub_cat_img = models.ImageField(upload_to="subcat_imgs",default="subcat_imgs/empty.jpg")
 
 
     def __str__(self):
@@ -32,9 +32,9 @@ class Product(models.Model):
     product_amount = models.IntegerField()
     product_rate = models.IntegerField()
     # product_ratedby = models.IntegerField()
-    image1 = models.ImageField(upload_to="product_imgs",default="empty.png")
-    image2 = models.ImageField(upload_to="product_imgs",default="empty.png")
-    image3 = models.ImageField(upload_to="product_imgs",default="empty.png")
+    image1 = models.ImageField(upload_to="product_imgs",default="product_imgs/empty.png")
+    image2 = models.ImageField(upload_to="product_imgs",default="product_imgs/empty.png")
+    image3 = models.ImageField(upload_to="product_imgs",default="product_imgs/empty.png")
     
     def __str__(self):
         return self.product_name
