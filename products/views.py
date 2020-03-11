@@ -5,6 +5,9 @@ from products.models import Product
 from products.models import Brand
 from products.models import Sub_Category
 from products.models import Category
+from .forms import CommentsForm
+from .forms import ReviewsForm
+from .forms import AddToCartForm
 from django.core.paginator import Paginator
 
 
@@ -134,15 +137,24 @@ def displayProductDetails(request, product_id):
             new_reveiw_form.user = user
             new_reveiw_form.product = product
             new_reveiw_form.save()
+        add_to_cart_form = AddToCartForm(request.POST)
+        if add_to_cart_form.is_valid():
+             new_add_to_cart = add_to_cart_form.save(commit=False)
+             new_add_to_cart.cartUser = user
+             new_add_to_cart.cartProduct = product
+             new_add_to_cart.save()
     else:
         form = CommentsForm()
         review_form = ReviewsForm()
+        add_to_cart_form = AddToCartForm()
+
 
    # all_comments = product.objects.all()
     context = {
         'form':  form,
         'product_details': product,
         'review_form':review_form,
+        'add_to_cart_form':add_to_cart_form,
         #'all_comments': all_comments,
     }
     return render(request, template, context)
