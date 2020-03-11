@@ -1,5 +1,7 @@
 from django.db import models
 from products.models import Product
+from django.utils import timezone
+
 
 
 class User(models.Model):
@@ -27,14 +29,14 @@ class Favourite(models.Model):
 
 
 class Reviews(models.Model):
-     RATING_CHOICES = (
+    RATING_CHOICES = (
         (1, '1'),
         (2, '2'),
         (3, '3'),
         (4, '4'),
         (5, '5'),
     )
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     Review = models.IntegerField(choices=RATING_CHOICES)
     #Review = models.IntegerField(null=False)
