@@ -1,6 +1,8 @@
 from django import forms
 from user.models import Comments
 from user.models import Reviews
+from cart.models import Cart
+
 
 
 class CommentsForm(forms.ModelForm):
