@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.db import connection
 from django.template import loader
 from products.models import Product
 from products.models import Brand
@@ -9,6 +10,8 @@ from .forms import CommentsForm
 from .forms import ReviewsForm
 from .forms import AddToCartForm
 from django.core.paginator import Paginator
+from user.models import Comments
+from user.models import Reviews
 
 
 
@@ -147,7 +150,29 @@ def displayProductDetails(request, product_id):
         form = CommentsForm()
         review_form = ReviewsForm()
         add_to_cart_form = AddToCartForm()
-
+        
+        
+    all_comments = Comments.objects.filter(product=product_id)
+    cursor1 = connection.cursor()
+    cursor1.execute('''select avg(Review) from user_reviews where Review=1''')
+    row1 = cursor1.fetchone()
+    results1 = row1[0]
+    cursor2 = connection.cursor()
+    cursor2.execute('''select avg(Review) from user_reviews where Review=2''')
+    row2 = cursor2.fetchone()
+    results2 = row2[0]
+    cursor3 = connection.cursor()
+    cursor3.execute('''select avg(Review) from user_reviews where Review=3''')
+    row3 = cursor3.fetchone()
+    results3 = row3[0]
+    cursor4 = connection.cursor()
+    cursor4.execute('''select avg(Review) from user_reviews where Review=4''')
+    row4 = cursor4.fetchone()
+    results4 = row4[0]
+    cursor5 = connection.cursor()
+    cursor5.execute('''select avg(Review) from user_reviews where Review=5''')
+    row5 = cursor5.fetchone()
+    results5 = row5[0]
 
    # all_comments = product.objects.all()
     context = {
@@ -155,7 +180,12 @@ def displayProductDetails(request, product_id):
         'product_details': product,
         'review_form':review_form,
         'add_to_cart_form':add_to_cart_form,
-        #'all_comments': all_comments,
+        'all_comments': all_comments,
+        'results1': results1,
+        'results2': results2,
+        'results3': results3,
+        'results4': results4,
+        'results5': results5,
     }
     return render(request, template, context)
     except Product.DoesNotExist:
