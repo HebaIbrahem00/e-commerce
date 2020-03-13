@@ -2,8 +2,6 @@ from django.db import models
 from products.models import Product
 from django.utils import timezone
 
-
-
 class User(models.Model):
     firstName = models.CharField(null=False, max_length=20)
     last_name = models.CharField(null=False, max_length=20)
