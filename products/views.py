@@ -154,23 +154,23 @@ def displayProductDetails(request, product_id):
         
     all_comments = Comments.objects.filter(product=product_id)
     cursor1 = connection.cursor()
-    cursor1.execute('''select avg(Review) from user_reviews where Review=1''')
+    cursor1.execute('''select avg(Review) from user_reviews where Review=1 and product_id= %s''',[product_id])
     row1 = cursor1.fetchone()
     results1 = row1[0]
     cursor2 = connection.cursor()
-    cursor2.execute('''select avg(Review) from user_reviews where Review=2''')
+    cursor2.execute('''select avg(Review) from user_reviews where Review=2 and product_id= %s''',[product_id])
     row2 = cursor2.fetchone()
     results2 = row2[0]
     cursor3 = connection.cursor()
-    cursor3.execute('''select avg(Review) from user_reviews where Review=3''')
+    cursor3.execute('''select avg(Review) from user_reviews where Review=3 and product_id= %s''',[product_id])
     row3 = cursor3.fetchone()
     results3 = row3[0]
     cursor4 = connection.cursor()
-    cursor4.execute('''select avg(Review) from user_reviews where Review=4''')
+    cursor4.execute('''select avg(Review) from user_reviews where Review=4 and product_id= %s''',[product_id])
     row4 = cursor4.fetchone()
     results4 = row4[0]
     cursor5 = connection.cursor()
-    cursor5.execute('''select avg(Review) from user_reviews where Review=5''')
+    cursor5.execute('''select avg(Review) from user_reviews where Review=5 and product_id= %s''',[product_id])
     row5 = cursor5.fetchone()
     results5 = row5[0]
 
