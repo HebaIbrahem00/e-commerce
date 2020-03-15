@@ -16,6 +16,9 @@ from products.forms import CommentsForm
 from .forms import ReviewsForm
 from user.models import Comments
 from user.models import Reviews
+from django.core import serializers
+from django.http import JsonResponse
+
 
 
 
@@ -266,3 +269,16 @@ def display_shop_page(request):
         'brands_list':brands_list,
     }
     return HttpResponse(template.render(context, request))
+
+def get_sub_cat_details(request):
+    ajax_cat_id = request.GET['cat_id']
+    sub_categories = list(Sub_Category.objects.filter(cat_id=ajax_cat_id))
+    ser_sub_cat = serializers.serialize('json',sub_categories)
+    return JsonResponse(ser_sub_cat, safe=False ,content_type='application/json' )
+
+def get_brand_details(request):
+    ajax_sub_cat_id = request.GET['sub_cat_id']
+    brands = list(Brand.objects.filter(sub_cat_id=ajax_sub_cat_id))
+    ser_brands = serializers.serialize('json',brands)
+    return JsonResponse(ser_brands, safe=False ,content_type='application/json' )
+

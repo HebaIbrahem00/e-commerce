@@ -13,21 +13,6 @@
     <title>Home Page</title>
 </head>
 <style>
-    /* .has-search .form-control {
-    padding-left: 2.375rem;
-}
-
-.has-search .form-control-feedback {
-    position: absolute;
-    z-index: 2;
-    display: block;
-    width: 2.375rem;
-    height: 2.375rem;
-    line-height: 2.375rem;
-    text-align: center;
-    pointer-events: none;
-    color: #aaa;
-} */
 </style>
 
 <body>
@@ -111,19 +96,22 @@
                             <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
                                 aria-expanded="false" aria-controls="collapseThree">
                                 {% if cat_name %}
-                                <span class="btn btn-primary btn-lg active">   {{ cat_name }} &darr;&darr;</span>
-                              
+                                <span class="btn btn-primary btn-lg active"> {{ cat_name }} &darr;&darr;</span>
+
                                 {% elif sub_cat %}
-                                <a href="/products/cat/{{sub_cat.cat.id}}" class="btn btn-secondary btn-lg active"> {{sub_cat.cat }}</a>
-                                 
-                                <span class="btn btn-primary btn-lg active">  {{ sub_cat }} &darr;&darr;</span>
+                                <a href="/products/cat/{{sub_cat.cat.id}}" class="btn btn-secondary btn-lg active">
+                                    {{sub_cat.cat }}</a>
+
+                                <span class="btn btn-primary btn-lg active"> {{ sub_cat }} &darr;&darr;</span>
                                 {% else %}
-                                <a href="/products/cat/{{brand.sub_cat.cat.id}}" class="btn btn-secondary btn-lg active"> {{ brand.sub_cat.cat }}</a>
-                                
-                                <a href="/products/sub_cat/{{brand.sub_cat.id}}" class="btn btn-secondary btn-lg active"> {{ brand.sub_cat }}</a>
-                                
+                                <a href="/products/cat/{{brand.sub_cat.cat.id}}"
+                                    class="btn btn-secondary btn-lg active"> {{ brand.sub_cat.cat }}</a>
+
+                                <a href="/products/sub_cat/{{brand.sub_cat.id}}"
+                                    class="btn btn-secondary btn-lg active"> {{ brand.sub_cat }}</a>
+
                                 <span class="btn btn-primary btn-lg active"> {{ brand }} &darr;&darr;</span>
-                                
+
                                 {% endif %}
                             </button>
                         </h5>
@@ -161,7 +149,6 @@
                             <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
                                 aria-expanded="false" aria-controls="collapseThree">
                                 <span class="btn btn-primary btn-lg active"> Filter &darr;&darr;</span>
-                                
                             </button>
                         </h5>
                     </div>
@@ -176,7 +163,8 @@
                                     <div class="input-group-prepend">
                                         <label class="input-group-text" for="inputGroupSelect01">category</label>
                                     </div>
-                                    <select name="cat_id" class="custom-select" id="inputGroupSelect01">
+                                    <select name="cat_id" id="cat_id" class="custom-select" 
+                                        onclick="selectSubCat()">
                                         <option value=""></option>
                                         {% for cat in cat_list %}
                                         <option value="{{cat.id}}">{{cat.cat_name}}</option>
@@ -187,11 +175,8 @@
                                     <div class="input-group-prepend">
                                         <label class="input-group-text" for="inputGroupSelect01">Sub Category</label>
                                     </div>
-                                    <select name="sub_cat_id" class="custom-select" id="inputGroupSelect01">
+                                    <select name="sub_cat_id" id="sub_cat_id" class="custom-select" onclick="selectBrand()">
                                         <option value=""></option>
-                                        {% for sub_cat in sub_cat_list %}
-                                        <option value="{{sub_cat.id}}">{{sub_cat.sub_cat_name}}</option>
-                                        {% endfor %}
                                     </select>
                                 </div>
                                 <div class="input-group mb-3">
@@ -225,13 +210,12 @@
                                         <span class="input-group-text">$</span>
                                     </div>
                                 </div>
-
                                 <!-- <div class="form-group">
                                     <label for="formControlRange">Min Price</label>
                                     <input name="min_price" type="range" class="form-control-range"
                                         id="formControlRange">
                                 </div> -->
-                                <!-- <div class="input-group mb-3">
+                                <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <label class="input-group-text" for="inputGroupSelect01">Order By</label>
                                     </div>
@@ -242,7 +226,7 @@
                                         <option value="product_price ASC">Lower Price</option>
                                         <option value="product_rate DESC">Highest Rate</option>
                                     </select>
-                                </div> -->
+                                </div>
                                 <button type="submit" class="btn btn-primary mb-2"><i class="fa fa-search"></i></button>
                             </form>
                         </div>
@@ -283,7 +267,7 @@
     <div class="container text-center">
         <div class="row text-center">
 
-            <nav aria-label="Page navigation example"  style="margin: 0 auto;">
+            <nav aria-label="Page navigation example" style="margin: 0 auto;">
                 <ul class="pagination">
 
                     {% if search_product_list.has_previous %}
@@ -329,6 +313,54 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+
+
+    <script>
+        function selectSubCat() {
+            cat_id = document.getElementById("cat_id").value
+            sub_cat_sel = document.getElementsByName("sub_cat_id")[0];
+            sub_cat_sel.innerHTML = '<option value=""></option>'
+            if (cat_id) {
+                data = { 'cat_id': cat_id };
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        var sub_categories = JSON.parse(JSON.parse(xhr.response));
+                        for (var sub_cat of sub_categories) {
+                            var opt = document.createElement('option');
+                            opt.appendChild(document.createTextNode(sub_cat['fields']['sub_cat_name']));
+                            opt.value = sub_cat['pk'];
+                            sub_cat_sel.appendChild(opt);
+                        }
+                    }
+                };
+                xhr.open('GET', '/ajax/get_sub_cat_details?cat_id=' + cat_id);
+                xhr.send();
+            }
+        }
+        function selectBrand() {
+            sub_cat_id = document.getElementById("sub_cat_id").value
+            brand_sel = document.getElementsByName("brand_id")[0];
+            brand_sel.innerHTML = '<option value=""></option>'
+            if (sub_cat_id) {
+                data = { 'sub_cat_id': sub_cat_id };
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        var brands = JSON.parse(JSON.parse(xhr.response));
+                        for (var brand of brands) {
+                            var opt = document.createElement('option');
+                            opt.appendChild(document.createTextNode(brand['fields']['brand_name']));
+                            opt.value = brand['pk'];
+                            brand_sel.appendChild(opt);
+                        }
+                    }
+                };
+                xhr.open('GET', '/ajax/get_brand_details?sub_cat_id=' + sub_cat_id);
+                xhr.send();
+            }
+        }
+    </script>
 </body>
 
 </html>
