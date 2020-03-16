@@ -102,13 +102,13 @@
               <i class="fas fa-user-circle"></i>Profile
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="/accounts/profile">Profile</a>
+              <a class="dropdown-item" href="/accounts/view_profile.html">Profile</a>
               <a class="dropdown-item" href="/accounts/edit_profile.html">Edit Profile</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#">Your Order</a>
               <a class="dropdown-item" href="#">Track My Order</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="accounts/password_change_done.html">Change Password</a>
+              <a class="dropdown-item" href="/accounts/password_change_done.html">Change Password</a>
             </div>
           </li>
           <li class="nav-item">
@@ -116,12 +116,12 @@
           </li>
           {% else %}
           <li class="nav-item">
-            <a href="accounts/login"  class="nav-link border border-light rounded waves-effect" target="_blank">
+            <a href="/accounts/login"  class="nav-link border border-light rounded waves-effect" target="_blank">
               <i class="fas fa-sign-in-alt mr-2"></i>Login
             </a>
           </li>
           <li class="nav-item">
-          <a href= "/accounts/signup" class="nav-link border border-light rounded waves-effect"
+          <a href= "/signup" class="nav-link border border-light rounded waves-effect"
               target="_blank">
               <i class="fas fa-user-plus mr-2"></i>Signup
             </a>
@@ -355,13 +355,13 @@
 
   <!-- SCRIPTS -->
   <!-- JQuery -->
-  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
   <!-- Bootstrap tooltips -->
-  <script type="text/javascript" src="js/popper.min.js"></script>
+  <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
   <!-- Bootstrap core JavaScript -->
-  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="{% static js/bootstrap.min.js' %}"></script>
   <!-- MDB core JavaScript -->
-  <script type="text/javascript" src="js/mdb.min.js"></script>
+  <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
   <!-- Initializations -->
   <script type="text/javascript">
     // Animations initialization
