@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse ,HttpResponseRedirect
 from django.db import connection
 from django.template import loader
 from products.models import Product
@@ -129,72 +129,100 @@ def displayBrandDetails(request, brand_id):
 
 def displayProductDetails(request, product_id):
     try:
+        comment = request.POST.get('Comment')
+        CartQuantity = request.POST.get('quantity')
+        print(CartQuantity)
         product = get_object_or_404(Product, id=product_id)
-        #product = Product.objects.get(id=product_id)
-        #user = User.objects.get(id=request.user.id)
         user = get_object_or_404(User, id=request.user.id)
-        template = 'products/ItemPage.html'
+        all_comments = Comments.objects.filter(product=product_id)
+        template = 'products/product-page.html'
         if request.method == 'POST':
             form = CommentsForm(request.POST)
             if form.is_valid():
                 new_form = form.save(commit=False)
                 new_form.user = user
                 new_form.product = product
+                for comment_check in all_comments:
+                    print("2")
+                    if comment_check.Comment == comment:
+                        if comment_check.product == product_id:
+                            print("4")
+                            if comment_check.user == user:
+                                print("1")
+                                return HttpResponse("you wrote this comment before")
+                    else:
+                        new_form.Comment = comment
                 new_form.save()
+                return HttpResponseRedirect(request.path_info)
             review_form = ReviewsForm(request.POST)
             if review_form.is_valid():
                 new_reveiw_form = review_form.save(commit=False)
                 new_reveiw_form.user = user
                 new_reveiw_form.product = product
                 new_reveiw_form.save()
+                return HttpResponseRedirect(request.path_info)
             add_to_cart_form = AddToCartForm(request.POST)
             if add_to_cart_form.is_valid():
                 new_add_to_cart = add_to_cart_form.save(commit=False)
                 new_add_to_cart.cartUser = user
                 new_add_to_cart.cartProduct = product
+                new_add_to_cart.quantity = CartQuantity
                 new_add_to_cart.save()
+                return HttpResponseRedirect(request.path_info)
         else:
             form = CommentsForm()
             review_form = ReviewsForm()
             add_to_cart_form = AddToCartForm()
-            
-            
         all_comments = Comments.objects.filter(product=product_id)
+        all_reviews = Reviews.objects.filter(product=product_id)
         cursor1 = connection.cursor()
-        cursor1.execute('''select avg(Review) from user_reviews where Review=1 and product_id= %s''',[product_id])
+        cursor1.execute('''select avg(Review) ,count(Review) from user_reviews where Review=1 and product_id= %s''',[product_id])
         row1 = cursor1.fetchone()
         results1 = row1[0]
+        count_1 = row1[1]
+        print(row1[1])
         cursor2 = connection.cursor()
-        cursor2.execute('''select avg(Review) from user_reviews where Review=2 and product_id= %s''',[product_id])
+        cursor2.execute('''select avg(Review) ,count(Review) from user_reviews where Review=2 and product_id= %s''',[product_id])
         row2 = cursor2.fetchone()
         results2 = row2[0]
+        count_2 = row2[1]
         cursor3 = connection.cursor()
-        cursor3.execute('''select avg(Review) from user_reviews where Review=3 and product_id= %s''',[product_id])
+        cursor3.execute('''select avg(Review) ,count(Review) from user_reviews where Review=3 and product_id= %s''',[product_id])
         row3 = cursor3.fetchone()
         results3 = row3[0]
+        count_3 = row3[1]
         cursor4 = connection.cursor()
-        cursor4.execute('''select avg(Review) from user_reviews where Review=4 and product_id= %s''',[product_id])
+        cursor4.execute('''select avg(Review) ,count(Review)from user_reviews where Review=4 and product_id= %s''',[product_id])
         row4 = cursor4.fetchone()
         results4 = row4[0]
+        count_4 = row4[1]
         cursor5 = connection.cursor()
-        cursor5.execute('''select avg(Review) from user_reviews where Review=5 and product_id= %s''',[product_id])
+        cursor5.execute('''select avg(Review) ,count(Review) from user_reviews where Review=5 and product_id= %s''',[product_id])
         row5 = cursor5.fetchone()
         results5 = row5[0]
-
-    # all_comments = product.objects.all()
+        count_5 = row5[1]
         context = {
             'form':  form,
-            'product_details': product,
-            'review_form':review_form,
-            'add_to_cart_form':add_to_cart_form,
+            'product': product,
+            'review_form': review_form,
+            'add_to_cart_form': add_to_cart_form,
             'all_comments': all_comments,
             'results1': results1,
             'results2': results2,
             'results3': results3,
             'results4': results4,
             'results5': results5,
+            'count_1': count_1,
+            'count_2': count_2,
+            'count_3': count_3,
+            'count_4': count_4,
+            'count_5': count_5,
+            'all_reviews' : all_reviews,
+            'user' : user,
+            'product_id' : product_id,
+
         }
-        return render(request, template, context)
+        return render(request, template, context,RequestContext(request))
     except Product.DoesNotExist:
         return HttpResponse("You're looking for non existing product" )
 
