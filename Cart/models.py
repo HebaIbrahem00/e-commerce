@@ -20,6 +20,7 @@ class Cart(models.Model):
 
 
 class Favorite(models.Model):
+
     userF= models.ForeignKey(User,on_delete=models.CASCADE)
     product= models.ForeignKey(Product,on_delete=models.CASCADE)
     addDate =models.DateField(auto_now= True)
