@@ -11,7 +11,7 @@ class Category(models.Model):
 class Sub_Category(models.Model):
     cat = models.ForeignKey(Category, on_delete=models.CASCADE)
     sub_cat_name = models.CharField(max_length=50)
-    sub_cat_img = models.ImageField(upload_to="subcat_imgs",default="subcat_imgs/empty.jpg")
+    #sub_cat_img = models.ImageField(upload_to="subcat_imgs",default="subcat_imgs/empty.jpg")
 
 
     def __str__(self):
