@@ -7,16 +7,7 @@ from cart.models import Cart ,Favorite
 from user.models import User
 from products.models import Product
 
-def addToCart ( request , user_id, product_id):
-#this shall be invoked when the button of addToCart is clicked
-#here we will check first in the table if there is a record(cart) with the user_id, if not we will create else we will add 3latol??
 
-    obj = Cart()
-    obj.addingDate = datetime.datetime.now()
-    obj.cartUser = User.objects.get(id=user_id)
-    obj.cartProduct = Product.objects.get(id=product_id)
-    obj.save()
-    #return HttpResponse() of success and/or a pop up message telling the user so 
 
 def showCart (request):
     user=request.user
