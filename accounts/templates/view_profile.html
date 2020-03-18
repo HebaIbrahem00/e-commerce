@@ -1,0 +1,11 @@
+
+
+## accounts/templates/accounts/view_profile.html
+{% extends "base.html" %}
+{% load static %}
+{% block body %}                                                                                                                                                  -->
+
+Username: {{ user }} First name: {{ user.first_name }} Last name: {{ user.last_name }} Email: {{ user.email }} credit Number: {{ user.Profile.creditNumber }} Phone: {{ user.Profile.phone }} Address1: {{ user.Profile.address1 }}  Address2: {{ user.Profile.address2 }} 
+{% endblock body %}
+
+
