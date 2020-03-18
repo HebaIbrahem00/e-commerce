@@ -26,7 +26,7 @@
                <tbody class="table-hover"> 
                 {% for p in userCart %}
             <tr>
-                <td> {{ p.cartProduct.get_name }} </td>
+                <td> {{ p.cartProduct.product_name }} </td>
                 <td> <Image src= {{ p.cartProduct.image1 }} > <Image/></td>
                 <td>{{ p.addingDate }}</td>
                 <td>  <a href={{ p.productIdURLdel}} class="btn btn-primary btn-dark"> Delete  </a> <a href={{ p.productIdURLmov}} class="btn btn-primary btn-dark"> Move To favorites </a>  </td>
