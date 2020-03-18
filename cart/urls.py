@@ -13,5 +13,5 @@ urlpatterns = [
 
     path('favorites/', views.showFav ,name='userFavorites'),
     path('removeItem/<pid>', views.deleteFavItem ,name='deleteFavItem'),
-    path('movetocart/<pid>', views.moveToCart ,name='moveToCart'),
+    path('movetocart/<pid>', views.moveToCart ,name='moveToCart')
 ]

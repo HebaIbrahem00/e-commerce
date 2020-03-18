@@ -10,13 +10,15 @@ class Cart(models.Model):
     quantity = models.CharField(null=False, max_length=255, default="1")
     addingDate = models.DateField(auto_now=True)
 
+  
+    
     def productIdURLdel(self):
 
-        return reverse("cart:deleteCartItem", kwargs={"id": self.cartProduct.id})
+        return reverse("cart:deleteCartItem",kwargs={'id': self.cartProduct.id })
 
     def productIdURLmov(self):
 
-        return reverse("cart:moveToFav", kwargs={"id": self.cartProduct.id})
+        return reverse("cart:moveToFav",kwargs={'id': self.cartProduct.id })
 
 
 class Favorite(models.Model):
@@ -26,9 +28,9 @@ class Favorite(models.Model):
 
     def pIdURLdel(self):
 
-        return reverse("cart:deleteFavItem", kwargs={"pid": self.product.id})
+        return reverse("cart:deleteFavItem",kwargs={'pid': self.product.id })
 
-    def ptIdURLmov(self):
+    def pIdURLmov(self):
 
-        return reverse("cart:moveToCart", kwargs={"pid": self.product.id})
+        return reverse("cart:moveToCart",kwargs={'pid': self.product.id })
 
