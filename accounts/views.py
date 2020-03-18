@@ -1,4 +1,3 @@
-# Create your views here.
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
 from django.contrib.sites.shortcuts import get_current_site
@@ -10,9 +9,14 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from .tokens import account_activation_token
 from django.template.loader import render_to_string
-
+from datetime import datetime
+from accounts.forms import (EditProfileForm, ProfileForm)
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.decorators import login_required
 from .forms import SignUpForm
 from .tokens import account_activation_token
+from django.contrib.auth.models import User
+from accounts.models import Profile
 
 def home_view(request):
     return render(request, 'accounts/home.html')
@@ -61,6 +65,27 @@ def signup_view(request):
     else:
         form = SignUpForm()
     return render(request, 'accounts/signup.html', {'form': form})
+
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)  # request.FILES is show the selected image or file
+
+        if form.is_valid() and profile_form.is_valid():
+            user_form = form.save()
+            custom_form = profile_form.save(False)
+            custom_form.user = user_form
+            custom_form.save()
+            return redirect('accounts:view_profile')
+    else:
+        form = EditProfileForm(instance=request.user)
+        profile_form = ProfileForm(instance=request.user.profile)
+        args = {}
+        # args.update(csrf(request))
+        args['form'] = form
+        args['profile_form'] = profile_form
+        return render(request, 'accounts/edit_profile.html', args)
 
 def profile(request , slug):
     pass
