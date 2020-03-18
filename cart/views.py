@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.template import loader
 from cart.models import Cart ,Favorite
-from django.contrib.auth.models import User
+from user.models import User
 from products.models import Product
 
 def addToCart ( request , user_id, product_id):
@@ -23,6 +23,8 @@ def showCart (request):
     cart=Cart.objects.filter(cartUser__id=user.id)
     print(cart)
     totalCost=0
+    for item in cart:
+        totalCost+=item.cartProduct.product_price
     return render(request , 'cart.html', {'userCart':cart,'total':totalCost})
 
 
