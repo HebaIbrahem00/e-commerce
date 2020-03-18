@@ -10,9 +10,14 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from .tokens import account_activation_token
 from django.template.loader import render_to_string
-
+from datetime import datetime
+from accounts.forms import (EditProfileForm, ProfileForm)
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.decorators import login_required
 from .forms import SignUpForm
 from .tokens import account_activation_token
+from django.contrib.auth.models import User
+from accounts.models import Profile
 
 def home_view(request):
     return render(request, 'accounts/home.html')
