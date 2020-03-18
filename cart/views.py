@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.template import loader
 from cart.models import Cart ,Favorite
-from user.models import User
+from django.contrib.auth.models import User
 from products.models import Product
 
 def addToCart ( request , user_id, product_id):
@@ -36,7 +36,7 @@ def deleteCartItem(request,id):
 def moveToFav(request,id):
     user=request.user
     obj=Favorite()
-    obj.userF=User.objects.get(id=user.id)
+    obj.user=User.objects.get(id=user.id)
     obj.product=Product.objects.get(id=id)
     obj.save()
 
@@ -49,7 +49,7 @@ def moveToFav(request,id):
 
 def showFav(request):
     user=request.user
-    fav=Favorite.objects.filter(userF__id=user.id)
+    fav=Favorite.objects.filter(user__id=user.id)
     print(fav)
 
     return render(request,'favorites.html',{'userFav':fav})  
