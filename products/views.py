@@ -227,7 +227,7 @@ def displayProductDetails(request, product_id):
             'product_id' : product_id,
 
         }
-        return render(request, template, context,RequestContext(request))
+        return render(request, template, context)
     except Product.DoesNotExist:
         return HttpResponse("You're looking for non existing product" )
 
