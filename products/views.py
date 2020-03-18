@@ -134,7 +134,11 @@ def displayProductDetails(request, product_id):
         CartQuantity = request.POST.get('quantity')
         print(CartQuantity)
         product = Product.objects.get(id=product_id)
-        user = User.objects.get(id=request.user.id)
+        try:
+            user = User.objects.get(id=request.user.id)
+            print(user.id)
+        except User.DoesNotExist:
+            pass
         all_comments = Comments.objects.filter(product=product_id)
         template = 'products/product-page.html'
         if request.method == 'POST':
