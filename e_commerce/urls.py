@@ -32,6 +32,7 @@ urlpatterns = [
     path("signup/", signup_view, name="signup"),
     path("sent/", activation_sent_view, name="activation_sent"),
     path("activate/<slug:uidb64>/<slug:token>/", activate, name="activate"),
+    url(r'^accounts/', include('accounts.urls', namespace='accounts')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
