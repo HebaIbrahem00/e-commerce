@@ -33,7 +33,7 @@ def activate(request, uidb64, token):
         user.profile.signup_confirmation = True
         user.save()
         login(request, user)
-        return redirect('home')
+        return redirect('/products')
     else:
         return render(request, 'accounts/activation_invalid.html')
 
