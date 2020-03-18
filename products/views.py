@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse ,HttpResponseRedirect
 from django.db import connection
+from django.template import RequestContext
 from django.template import loader
 from products.models import Product
 from products.models import Brand
@@ -132,8 +133,8 @@ def displayProductDetails(request, product_id):
         comment = request.POST.get('Comment')
         CartQuantity = request.POST.get('quantity')
         print(CartQuantity)
-        product = get_object_or_404(Product, id=product_id)
-        user = get_object_or_404(User, id=request.user.id)
+        product = Product.objects.get(id=product_id)
+        user = User.objects.get(id=request.user.id)
         all_comments = Comments.objects.filter(product=product_id)
         template = 'products/product-page.html'
         if request.method == 'POST':
