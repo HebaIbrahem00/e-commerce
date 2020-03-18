@@ -6,7 +6,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Material Design Bootstrap</title>
+  <title>SOUQ STORE</title>
+
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
   <!-- Bootstrap core CSS -->
@@ -15,6 +16,17 @@
   <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
   <!-- Your custom styles (optional) -->
   <link href="{% static 'css/style.min.css' %}" rel="stylesheet">
+
+  <!-- Slick -->
+  <link type="{% static 'text/css" rel="stylesheet" href="css/slick.css' %}" />
+  <link type="{% static 'text/css" rel="stylesheet" href="css/slick-theme.css' %}" />
+
+  <!-- nouislider -->
+  <link type="{% static 'text/css" rel="stylesheet" href="css/nouislider.min.css' %}" />
+  <link type="text/css" rel="stylesheet" href="css/style.css" />
+
+  <!-- Font Awesome Icon -->
+  <link rel="{% static 'stylesheet" href="css/font-awesome.min.css' %}">
   <style type="text/css">
     html,
     body,
@@ -48,6 +60,7 @@
 
 <body>
 
+
   <!-- Navbar -->
   <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
     <div class="container">
@@ -68,24 +81,34 @@
 
         <!-- Left -->
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link waves-effect" href="#">Home
-              <span class="sr-only">(current)</span>
+          <li class="nav-item">
+            <a class="nav-link" href="/products/">
+              <i class="glyphicon glyphicon-home"></i>Home
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link waves-effect" href="https://mdbootstrap.com/docs/jquery/" target="_blank">Categories</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link waves-effect" href="https://mdbootstrap.com/docs/jquery/getting-started/download/"
-              target="_blank"></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link waves-effect" href="https://mdbootstrap.com/education/bootstrap/" target="_blank">Free
-              tutorials</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-user-circle"></i>Categories
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">category 1</a>
+              <a class="dropdown-item" href="#">category 2</a>
+              <a class="dropdown-item" href="#">category 3</a>
+              <a class="dropdown-item" href="#">category 4</a>
+              <div class="dropdown-divider"></div>
+            </div>
           </li>
         </ul>
-
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent2"
+          aria-controls="navbarSupportedContent2" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn" style="background-color: darkgray;" type="button"><i
+              class="fa fa-search"></i></button>
+        </form>
         <!-- Right -->
         <ul class="navbar-nav nav-flex-icons">
           <li class="nav-item">
@@ -96,42 +119,49 @@
             </a>
           </li>
           {% if user.is_authenticated %}
-          
+
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fas fa-user-circle"></i>Profile
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-user-circle"></i>{{user.username}}
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="/accounts/profile">Profile</a>
               <a class="dropdown-item" href="/accounts/edit_profile.html">Edit Profile</a>
+              <a class="dropdown-item" href="accounts/password_change">Change Password</a>
+              <a href="/accounts/logout" class="nav-link border border-light rounded waves-effect" target="_blank">
+                <i class="fas fa-sign-out-alt mr-2"></i>Logout
+              </a>
+
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#">Your Order</a>
               <a class="dropdown-item" href="#">Track My Order</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="accounts/password_change_done.html">Change Password</a>
+              <a class="nav-link waves-effect">
+                <span class="badge red z-depth-1 mr-1"> 1 </span>
+                <i class="fas fa-shopping-cart"></i>
+                <span class="clearfix d-none d-sm-inline-block">Fav Cart</span>
+              </a>
             </div>
           </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
-          </li>
+        
+          
           {% else %}
           <li class="nav-item">
-            <a href="/accounts/login"  class="nav-link border border-light rounded waves-effect" target="_blank">
+            <a href="/accounts/login" class="nav-link border border-light rounded waves-effect" target="_blank">
               <i class="fas fa-sign-in-alt mr-2"></i>Login
             </a>
           </li>
           <li class="nav-item">
-          <a href= "/signup" class="nav-link border border-light rounded waves-effect"
-              target="_blank">
+            <a href="/signup" class="nav-link border border-light rounded waves-effect" target="_blank">
               <i class="fas fa-user-plus mr-2"></i>Signup
             </a>
           </li>
-        {% endif %}
-      </ul>
+          {% endif %}
+        </ul>
       </div>
 
     </div>
-    
+
   </nav>
   <!-- Navbar -->
 
@@ -140,7 +170,7 @@
   <!--Main layout-->
   {% block body %}
 
-  
+
   {% endblock body %}
   <!--Main layout-->
 
@@ -149,13 +179,12 @@
 
     <!--Call to action-->
     <div class="pt-4">
-      <a class="btn btn-outline-white" href="https://mdbootstrap.com/docs/jquery/getting-started/download/"
-        target="_blank" role="button">Download MDB
+      <a class="btn btn-outline-white" href="#"
+        target="_blank" role="button">About Us
         <i class="fas fa-download ml-2"></i>
       </a>
-      <a class="btn btn-outline-white" href="https://mdbootstrap.com/education/bootstrap/" target="_blank"
-        role="button">Start
-        free tutorial
+      <a class="btn btn-outline-white" href="#" target="_blank"
+        role="button">Complaints
         <i class="fas fa-graduation-cap ml-2"></i>
       </a>
     </div>
@@ -165,35 +194,35 @@
 
     <!-- Social icons -->
     <div class="pb-4">
-      <a href="https://www.facebook.com/mdbootstrap" target="_blank">
+      <a href="#" target="_blank">
         <i class="fab fa-facebook-f mr-3"></i>
       </a>
 
-      <a href="https://twitter.com/MDBootstrap" target="_blank">
+      <a href="#" target="_blank">
         <i class="fab fa-twitter mr-3"></i>
       </a>
 
-      <a href="https://www.youtube.com/watch?v=7MUISDJ5ZZ4" target="_blank">
+      <a href="#" target="_blank">
         <i class="fab fa-youtube mr-3"></i>
       </a>
 
-      <a href="https://plus.google.com/u/0/b/107863090883699620484" target="_blank">
+      <a href="#" target="_blank">
         <i class="fab fa-google-plus-g mr-3"></i>
       </a>
 
-      <a href="https://dribbble.com/mdbootstrap" target="_blank">
+      <a href="#" target="_blank">
         <i class="fab fa-dribbble mr-3"></i>
       </a>
 
-      <a href="https://pinterest.com/mdbootstrap" target="_blank">
+      <a href="#" target="_blank">
         <i class="fab fa-pinterest mr-3"></i>
       </a>
 
-      <a href="https://github.com/mdbootstrap/bootstrap-material-design" target="_blank">
+      <a href="#" target="_blank">
         <i class="fab fa-github mr-3"></i>
       </a>
 
-      <a href="http://codepen.io/mdbootstrap/" target="_blank">
+      <a href="#" target="_blank">
         <i class="fab fa-codepen mr-3"></i>
       </a>
     </div>
@@ -202,7 +231,7 @@
     <!--Copyright-->
     <div class="footer-copyright py-3">
       © 2019 Copyright:
-      <a href="https://mdbootstrap.com/education/bootstrap/" target="_blank"> MDBootstrap.com </a>
+      <a href="#" target="_blank"></a>
     </div>
     <!--/.Copyright-->
 
@@ -210,6 +239,12 @@
   <!--/.Footer-->
 
   <!-- SCRIPTS -->
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/slick.min.js' %}"></script>
+  <script src="{% static 'js/nouislider.min.js' %}"></script>
+  <script src="{% static 'js/jquery.zoom.min.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
   <!-- JQuery -->
   <script type="text/javascript" src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
   <!-- Bootstrap tooltips -->
