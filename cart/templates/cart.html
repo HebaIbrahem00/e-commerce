@@ -1,0 +1,52 @@
+
+{% extends 'accounts/base.html' %}
+
+
+
+{% block body %}
+
+    <div style="text-align: center;font-size: xx-large;color:blueviolet;font-style: italic;font-family: fantasy;">
+        Welcome to your Cart
+    </div>
+    {% if userCart %}
+ 
+  <form class="form-inline my-2 my-lg-0" action="" method="GET"> 
+    <div class="table-responsive  d-inline-flex p-2 text-center" style="margin-left: 300x; " >
+        
+        <table class="table table-bordered"  style="margin-left:300px;margin-right:300px;" >
+            
+            <thead class="thead-dark">
+            <tr>
+                <th>Product Name</th>
+                <th>Product Image</th>
+                <th>Date added</th>
+                <th>  </th>
+            </tr>
+               </thead>
+               <tbody class="table-hover"> 
+                {% for p in userCart %}
+            <tr>
+                <td> {{ p.cartProduct.get_name }} </td>
+                <td> <Image src= {{ p.cartProduct.image1 }} > <Image/></td>
+                <td>{{ p.addingDate }}</td>
+                <td>  <a href={{ p.productIdURLdel}} class="btn btn-primary btn-dark"> Delete  </a> <a href={{ p.productIdURLmov}} class="btn btn-primary btn-dark"> Move To favorites </a>  </td>
+            </tr>
+            
+
+               {% endfor %}
+
+            </tbody>
+        </table>
+          
+      </div>
+ </form>
+
+      <form class="form-inline my-2 my-lg-0" action="/purchase/" method="GET"> 
+          <button href="/admin-favorites" class="btn btn-dark btn-circle btn-xl" type="submit"  style="position:relative;width:200px;height:150px; margin-left:800px;border-radius:150px;">Buy Cart Elements </button>
+      </form>
+       {% else %} 
+  <div style="text-align: center;font-size: xx-large;color:blueviolet;font-style: italic;font-family: fantasy;">
+Cart is Empty
+    </div>
+    {% endif %}
+{% endblock %}
