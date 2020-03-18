@@ -1,10 +1,10 @@
 
 
-{% extends 'base.html' %}
+{% extends 'accounts/base.html'%}
 
 
 
-{% block content %}
+{% block body %}
 {% if userFav %}
 <div class="container mb-5 mt-5">
 
@@ -17,7 +17,7 @@
             </div>
             <div class="card-body pt-0">
                 <ul class="list-unstyled mb-4" style=" padding: .5rem 0;color: #6c757d;">
-                    <li>{{ p.product.get_name }} </li>
+                    <li>{{ p.product.product_name }} </li>
                     <li><Image src= {{ p.product.image1 }} > <Image/></li>
                     <li>{{ p.addDate }}</li>
                     <li>Price = {{ p.product.product_price}}</li>
