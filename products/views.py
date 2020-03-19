@@ -32,7 +32,7 @@ def display_home_page(request):
 
 
     latest_product_list = Product.objects.all()
-    paginator = Paginator(latest_product_list, 5)
+    paginator = Paginator(latest_product_list, 12)
     page_number = request.GET.get('page')
     latest_product_list = paginator.get_page(page_number)
 
@@ -64,7 +64,7 @@ def displayCatDetails(request, cat_id):
     query = 'SELECT * from '+table+brand_join_cond+sub_cat_join_cond+cat_join_cond+condition
     
     search_product_list = Product.objects.raw(query)
-    paginator = Paginator(search_product_list, 5)
+    paginator = Paginator(search_product_list, 12)
     page_number = request.GET.get('page')
     search_product_list = paginator.get_page(page_number)
     context = {
@@ -275,7 +275,7 @@ def displaySearchPage(request):
 
 
         # search_product_list = Product.objects.filter(product_name__icontains=product_name)
-        paginator = Paginator(search_product_list, 5)
+        paginator = Paginator(search_product_list, 12)
         page_number = request.GET.get('page')
         search_product_list = paginator.get_page(page_number)
         context = {

@@ -1,8 +1,6 @@
 {% extends "accounts/base.html"  %}
 {% load static %}
 {% block body %}
-<main class="mt-5 pt-4">
-    <div class="container dark-grey-text mt-5">
         <h2 class="mb-5 pt-4" >Login</h2>
         {% if form.errors %}
         <p  class="mb-5 pt-4">Your username and password didn't match. Please try again.</p>
@@ -36,6 +34,4 @@
 
         {# Assumes you setup the password_reset view in your URLconf #}
         <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
-    </div>
-</main>
 {% endblock body %}
