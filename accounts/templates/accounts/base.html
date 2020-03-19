@@ -66,7 +66,7 @@
     <div class="container">
 
       <!-- Brand -->
-      <a class="navbar-brand waves-effect" href="https://mdbootstrap.com/docs/jquery/" target="_blank">
+      <a class="navbar-brand waves-effect" href="#" target="_blank">
         <strong class="blue-text">SOUQ STORE</strong>
       </a>
 
@@ -115,8 +115,8 @@
         <!-- Right -->
         <ul class="navbar-nav nav-flex-icons">
           <li class="nav-item">
-            <a class="nav-link waves-effect" href="/cart">
-              <!-- <span class="badge red z-depth-1 mr-1"> 1 </span> -->
+            <a class="nav-link waves-effect">
+              <span class="badge red z-depth-1 mr-1"> 1 </span>
               <i class="fas fa-shopping-cart"></i>
               <span class="clearfix d-none d-sm-inline-block"> Cart </span>
             </a>
@@ -129,20 +129,27 @@
               <i class="fas fa-user-circle"></i>{{user.username}}
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="/accounts/view_profile">Profile</a>
-              <a class="dropdown-item" href="/accounts/view_profile/edit_profile/">Edit Profile</a>
-              <a class="dropdown-item" href="/accounts/password_change">Change Password</a>
+              <a class="dropdown-item" href="/accounts/view_profile"><i class="fas fa-user"></i>Profile</a>
+              <a class="dropdown-item" href="/accounts/view_profile/edit_profile/">
+                <i class="fas fa-edit"></i>Edit Profile</a>
+              <a class="dropdown-item" href="/accounts/password_change">
+                <i class="fa fa-key" aria-hidden="true"></i>Change Password</a>
               <a href="/accounts/logout" class="nav-link border border-light rounded waves-effect" >
                 <i class="fas fa-sign-out-alt mr-2"></i>Logout
               </a>
-
+              <a class="dropdown-item" href="/accounts/delete_user">
+                <i class="far fa-user-times"></i>delete Account
+              </a>
+              <a href="/accounts/logout" class="nav-link border border-light rounded waves-effect" >
+                <i class="fas fa-ban"></i>Deactivate
+              </a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#">Your Order</a>
               <a class="dropdown-item" href="#">Track My Order</a>
-              <a class="nav-link waves-effect" href="/cart/favorites">
+              <a class="nav-link waves-effect">
                 <span class="badge red z-depth-1 mr-1"> 1 </span>
-                <!-- <i class="fas fa-shopping-cart"></i> -->
-                <span class="clearfix d-none d-sm-inline-block">My Favourites</span>
+                <i class="fas fa-shopping-cart"></i>
+                <span class="clearfix d-none d-sm-inline-block">Fav Cart</span>
               </a>
             </div>
           </li>
