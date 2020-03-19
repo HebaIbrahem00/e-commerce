@@ -31,6 +31,7 @@ class Product(models.Model):
     product_price = models.IntegerField()
     product_amount = models.IntegerField()
     product_rate = models.IntegerField()
+    product_desc = models.TextField(null=True, blank=True)
     # product_ratedby = models.IntegerField()
     image1 = models.ImageField(upload_to="product_imgs",default="product_imgs/empty.png")
     image2 = models.ImageField(upload_to="product_imgs",default="product_imgs/empty.png")
