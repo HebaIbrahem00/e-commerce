@@ -1,231 +1,224 @@
 {% extends "accounts/base.html" %}
 {% load static %}
 {% block body %}
-
-        <h2 class="mb-5 pt-4">Search Page</h2>
-        <!-- collapse menu -->
-        {% if has_collapse_menu %}
-        {% if cat_name %}
-        {% endif %}
-        <div class="container mt-1 ">
-            <div class="col">
-                <div id="accordion">
-                    <div class="card">
-                        <div class="card-header" id="headingThree">
-                            <h5 class="mb-0">
-                                <button class="btn btn-link collapsed" data-toggle="collapse"
-                                    data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    {% if cat_name %}
-                                    <span class="btn btn-primary btn-lg active"> {{ cat_name }} &darr;&darr;</span>
-
-                                    {% elif sub_cat %}
-                                    <a href="/products/cat/{{sub_cat.cat.id}}" class="btn btn-secondary btn-lg active">
-                                        {{sub_cat.cat }}</a>
-
-                                    <span class="btn btn-primary btn-lg active"> {{ sub_cat }} &darr;&darr;</span>
-                                    {% else %}
-                                    <a href="/products/cat/{{brand.sub_cat.cat.id}}"
-                                        class="btn btn-secondary btn-lg active"> {{ brand.sub_cat.cat }}</a>
-
-                                    <a href="/products/sub_cat/{{brand.sub_cat.id}}"
-                                        class="btn btn-secondary btn-lg active"> {{ brand.sub_cat }}</a>
-
-                                    <span class="btn btn-primary btn-lg active"> {{ brand }} &darr;&darr;</span>
-
-                                    {% endif %}
-                                </button>
-                            </h5>
-                        </div>
-                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
-                            data-parent="#accordion">
-                            <div class="card-body">
+<div class="container">
+    <h2 class="mb-5 pt-4">Search Page</h2>
+    <!-- collapse menu -->
+    {% if has_collapse_menu %}
+    {% if cat_name %}
+    {% endif %}
+    <div class="container mt-1 ">
+        <div class="col">
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header" id="headingThree">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
+                                aria-expanded="false" aria-controls="collapseThree">
                                 {% if cat_name %}
-                                {% for sub_cat in sub_cats_for_this_cat %}
-                                <a href="/products/sub_cat/{{sub_cat.id}}" class="mr-5">{{sub_cat}}</a>
-                                {% endfor %}
+                                <span class="btn btn-primary btn-lg active"> {{ cat_name }} &darr;&darr;</span>
 
+                                {% elif sub_cat %}
+                                <a href="/products/cat/{{sub_cat.cat.id}}" class="btn btn-secondary btn-lg active">
+                                    {{sub_cat.cat }}</a>
+
+                                <span class="btn btn-primary btn-lg active"> {{ sub_cat }} &darr;&darr;</span>
                                 {% else %}
+                                <a href="/products/cat/{{brand.sub_cat.cat.id}}"
+                                    class="btn btn-secondary btn-lg active">
+                                    {{ brand.sub_cat.cat }}</a>
 
-                                {% for brand in brands_for_this_sub_cat %}
-                                <a href="/products/brand/{{brand.id}}" class="mr-5">{{brand.brand_name}}</a>
-                                {% endfor %}
+                                <a href="/products/sub_cat/{{brand.sub_cat.id}}"
+                                    class="btn btn-secondary btn-lg active">
+                                    {{ brand.sub_cat }}</a>
+
+                                <span class="btn btn-primary btn-lg active"> {{ brand }} &darr;&darr;</span>
 
                                 {% endif %}
-                            </div>
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                        <div class="card-body">
+                            {% if cat_name %}
+                            {% for sub_cat in sub_cats_for_this_cat %}
+                            <a href="/products/sub_cat/{{sub_cat.id}}" class="mr-5">{{sub_cat}}</a>
+                            {% endfor %}
+
+                            {% else %}
+
+                            {% for brand in brands_for_this_sub_cat %}
+                            <a href="/products/brand/{{brand.id}}" class="mr-5">{{brand.brand_name}}</a>
+                            {% endfor %}
+
+                            {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        {% endif %}
+    </div>
+    {% endif %}
 
-        <!-- Search menu -->
-        {% if serach_mode %}
-        <div class="container mt-5 ">
-            <div class="col">
-                <div id="accordion">
-                    <div class="card">
-                        <div class="card-header" id="headingThree">
-                            <h5 class="mb-0">
-                                <button class="btn btn-link collapsed" data-toggle="collapse"
-                                    data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    <span class="btn btn-primary btn-lg active"> Filter &darr;&darr;</span>
-                                </button>
-                            </h5>
-                        </div>
-                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
-                            data-parent="#accordion">
-                            <div class="card-body">
-                                <form action="" method="GET">
+    <!-- Search menu -->
+    {% if serach_mode %}
+    <div class="container mt-5 ">
+        <div class="col">
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header" id="headingThree">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
+                                aria-expanded="false" aria-controls="collapseThree">
+                                <span class="btn btn-primary btn-lg active"> Filter &darr;&darr;</span>
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                        <div class="card-body">
+                            <form action="" method="GET">
 
-                                    <input class="form-control mb-3" name="product_name" type="text"
-                                        placeholder="Search" aria-label="Search" value="{{product_name}}">
+                                <input class="form-control mb-3" name="product_name" type="text" placeholder="Search"
+                                    aria-label="Search" value="{{product_name}}">
 
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <label class="input-group-text" for="inputGroupSelect01">category</label>
-                                        </div>
-                                        <select name="cat_id" id="cat_id" class="custom-select"
-                                            onclick="selectSubCat()">
-                                            <option value=""></option>
-                                            {% for cat in cat_list %}
-                                            <option value="{{cat.id}}">{{cat.cat_name}}</option>
-                                            {% endfor %}
-                                        </select>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="inputGroupSelect01">category</label>
                                     </div>
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <label class="input-group-text" for="inputGroupSelect01">Sub
-                                                Category</label>
-                                        </div>
-                                        <select name="sub_cat_id" id="sub_cat_id" class="custom-select"
-                                            onclick="selectBrand()">
-                                            <option value=""></option>
-                                        </select>
+                                    <select name="cat_id" id="cat_id" class="custom-select" onclick="selectSubCat()">
+                                        <option value=""></option>
+                                        {% for cat in cat_list %}
+                                        <option value="{{cat.id}}">{{cat.cat_name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="inputGroupSelect01">Sub
+                                            Category</label>
                                     </div>
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <label class="input-group-text" for="inputGroupSelect01">Brands</label>
-                                        </div>
-                                        <select name="brand_id" class="custom-select" id="inputGroupSelect01">
-                                            <option value=""></option>
-                                            {% for brand in brands_list %}
-                                            <option value="{{brand.id}}">{{brand.brand_name}}</option>
-                                            {% endfor %}
-                                        </select>
+                                    <select name="sub_cat_id" id="sub_cat_id" class="custom-select"
+                                        onclick="selectBrand()">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="inputGroupSelect01">Brands</label>
                                     </div>
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Min Price</span>
-                                        </div>
-                                        <input name="min_price" type="text" class="form-control"
-                                            aria-label="Amount (to the nearest dollar)">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">$</span>
-                                        </div>
+                                    <select name="brand_id" class="custom-select" id="inputGroupSelect01">
+                                        <option value=""></option>
+                                        {% for brand in brands_list %}
+                                        <option value="{{brand.id}}">{{brand.brand_name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Min Price</span>
                                     </div>
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Max Price</span>
-                                        </div>
-                                        <input name="max_price" type="text" class="form-control"
-                                            aria-label="Amount (to the nearest dollar)">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">$</span>
-                                        </div>
+                                    <input name="min_price" type="text" class="form-control"
+                                        aria-label="Amount (to the nearest dollar)">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">$</span>
                                     </div>
-                                    <!-- <div class="form-group">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Max Price</span>
+                                    </div>
+                                    <input name="max_price" type="text" class="form-control"
+                                        aria-label="Amount (to the nearest dollar)">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">$</span>
+                                    </div>
+                                </div>
+                                <!-- <div class="form-group">
                                     <label for="formControlRange">Min Price</label>
                                     <input name="min_price" type="range" class="form-control-range"
                                         id="formControlRange">
                                 </div> -->
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <label class="input-group-text" for="inputGroupSelect01">Order By</label>
-                                        </div>
-                                        <select name="order" class="custom-select" id="inputGroupSelect01">
-                                            <option value=""></option>
-                                            <option value="product_name ASC">Name</option>
-                                            <option value="product_price DESC">Higher Price</option>
-                                            <option value="product_price ASC">Lower Price</option>
-                                            <option value="product_rate DESC">Highest Rate</option>
-                                        </select>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="inputGroupSelect01">Order By</label>
                                     </div>
-                                    <button type="submit" class="btn btn-primary mb-2"><i
-                                            class="fa fa-search"></i></button>
-                                </form>
-                            </div>
+                                    <select name="order" class="custom-select" id="inputGroupSelect01">
+                                        <option value=""></option>
+                                        <option value="product_name ASC">Name</option>
+                                        <option value="product_price DESC">Higher Price</option>
+                                        <option value="product_price ASC">Lower Price</option>
+                                        <option value="product_rate DESC">Highest Rate</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary mb-2"><i class="fa fa-search"></i></button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        {% endif %}
-
-        <!-- page items -->
-        <div class="container mt-5 mb-5">
-            <div class="row">
-                <!-- <div></div> -->
-                {% if search_product_list %}
-                {% for product in search_product_list %}
-                <div class="col-md-3 mt-3">
-                    <div class="card">
-                        <img src="{{ product.image1.url }}" class="card-img-top" alt="{{ product.product_name }}"
-                            style="height:18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title" style="font-weight: bold;"> {{ product.product_name }}</h5>
-                            <p class="card-text">${{ product.product_price }}</p>
-                            <a href="/products/product/{{ product.id }}" class="btn btn-primary">Details!</a>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-                {% else %}
-                <p>No products are available.</p>
-                {% endif %}
-            </div>
-        </div>
-
-        <!-- pageination  -->
-        {% if search_product_list.has_other_pages %}
-        <div class="container text-center">
-            <div class="row text-center">
-
-                <nav aria-label="Page navigation example" style="margin: 0 auto;">
-                    <ul class="pagination">
-
-                        {% if search_product_list.has_previous %}
-                        <li class="page-item"><a class="page-link"
-                                href="?page={{ search_product_list.previous_page_number }}&{{search_query}}">previous</a>
-                        </li>
-                        {% else %}
-                        <li class="disabled"></li>
-                        {% endif %}
-
-                        {% for page in search_product_list.paginator.page_range %}
-                        {% if search_product_list.number == page %}
-                        <li class="page-item"><a class="page-link" href="#">{{page}}</a></li>
-                        {% else %}
-                        <li class="page-item"><a class="page-link"
-                                href="?page={{page}}&{{search_query}}">{{page}}</a></li>
-                        {% endif %}
-                        {% endfor %}
-
-                        {% if search_product_list.has_next %}
-                        <li class="page-item"><a class="page-link"
-                                href="?page={{ search_product_list.next_page_number }}&{{search_query}}">Next</a>
-                        </li>
-                        {% else %}
-                        <li class="disabled"></li>
-                        {% endif %}
-
-                    </ul>
-                </nav>
-            </div>
-        </div>
-        {% endif %}
     </div>
-</main>
+    {% endif %}
+
+    <!-- page items -->
+    <div class="container mt-5 mb-5">
+        <div class="row">
+            <!-- <div></div> -->
+            {% if search_product_list %}
+            {% for product in search_product_list %}
+            <div class="col-md-3 mt-3">
+                <div class="card">
+                    <img src="{{ product.image1.url }}" class="card-img-top" alt="{{ product.product_name }}"
+                        style="height:18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title" style="font-weight: bold;"> {{ product.product_name }}</h5>
+                        <p class="card-text">${{ product.product_price }}</p>
+                        <a href="/products/product/{{ product.id }}" class="btn btn-primary">Details!</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <p>No products are available.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!--Pagination-->
+    {% if search_product_list.has_other_pages %}
+    <nav class="d-flex justify-content-center wow fadeIn">
+        <ul class="pagination pg-blue">
+
+            {% if search_product_list.has_previous %}
+            <li class="page-item "><a class="page-link"
+                    href="?page={{ search_product_list.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+            <li class="disabled"></li>
+            {% endif %}
+
+            {% for page in search_product_list.paginator.page_range %}
+            {% if search_product_list.number == page %}
+            <li class="page-item active"><a class="page-link" href="#">{{page}}</a></li>
+            {% else %}
+            <li class="page-item"><a class="page-link" href="?page={{page}}">{{page}}</a></li>
+            {% endif %}
+            {% endfor %}
+
+            {% if search_product_list.has_next %}
+            <li class="page-item"><a class="page-link"
+                    href="?page={{ search_product_list.next_page_number }}">&raquo;</a>
+            </li>
+            {% else %}
+            <li class="disabled"></li>
+            {% endif %}
+
+        </ul>
+    </nav>
+    {% endif %}
+    <!--Pagination-->
+
+</div>
+
 
 <script>
     function selectSubCat() {
