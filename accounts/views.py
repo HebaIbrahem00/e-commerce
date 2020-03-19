@@ -92,3 +92,14 @@ def edit_profile(request):
         args['form'] = form
         args['profile_form'] = profile_form
         return render(request, 'accounts/edit_profile.html', args)
+ 
+def delete_user(self):
+    self.user.delete()
+    return redirect('/products')  
+
+def delete_profile(request):
+    user = request.user
+    user.is_active = False
+    user.save()
+    messages.success(request, 'Profile successfully disabled.')
+    return redirect('/products')      
