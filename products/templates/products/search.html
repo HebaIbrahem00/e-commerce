@@ -196,7 +196,7 @@
 
                         {% if search_product_list.has_previous %}
                         <li class="page-item"><a class="page-link"
-                                href="?page={{ search_product_list.previous_page_number }}&product_name={{product_name}}">previous</a>
+                                href="?page={{ search_product_list.previous_page_number }}&{{search_query}}">previous</a>
                         </li>
                         {% else %}
                         <li class="disabled"></li>
@@ -207,13 +207,13 @@
                         <li class="page-item"><a class="page-link" href="#">{{page}}</a></li>
                         {% else %}
                         <li class="page-item"><a class="page-link"
-                                href="?page={{page}}&product_name={{product_name}}">{{page}}</a></li>
+                                href="?page={{page}}&{{search_query}}">{{page}}</a></li>
                         {% endif %}
                         {% endfor %}
 
                         {% if search_product_list.has_next %}
                         <li class="page-item"><a class="page-link"
-                                href="?page={{ search_product_list.next_page_number }}&product_name={{product_name}}">Next</a>
+                                href="?page={{ search_product_list.next_page_number }}&{{search_query}}">Next</a>
                         </li>
                         {% else %}
                         <li class="disabled"></li>

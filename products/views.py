@@ -32,7 +32,7 @@ def display_home_page(request):
 
 
     latest_product_list = Product.objects.all()
-    paginator = Paginator(latest_product_list, 12)
+    paginator = Paginator(latest_product_list, 8)
     page_number = request.GET.get('page')
     latest_product_list = paginator.get_page(page_number)
 
@@ -64,7 +64,7 @@ def displayCatDetails(request, cat_id):
     query = 'SELECT * from '+table+brand_join_cond+sub_cat_join_cond+cat_join_cond+condition
     
     search_product_list = Product.objects.raw(query)
-    paginator = Paginator(search_product_list, 12)
+    paginator = Paginator(search_product_list, 8)
     page_number = request.GET.get('page')
     search_product_list = paginator.get_page(page_number)
     context = {
@@ -246,36 +246,43 @@ def displaySearchPage(request):
         cat_join_cond = ' join products_category on cat_id = products_category.id '
         condition = ' WHERE 1'
         product_name = ""
+        search_query="product_name="
 
         if request.GET.get('product_name'):
             product_name = request.GET.get('product_name')
             condition += ' AND products_product.product_name like "%%'+product_name+ '%%"' 
+            search_query+=product_name
         if request.GET.get('cat_id'):
             cat_id = request.GET.get('cat_id')
             condition += ' AND products_category.id = %s ' % cat_id
+            search_query+="&cat_id="+cat_id
         if request.GET.get('sub_cat_id'):
             sub_cat_id = request.GET.get('sub_cat_id')
             condition += ' AND products_sub_category.id = %s ' % sub_cat_id
+            search_query+="&sub_cat_id="+sub_cat_id
         if request.GET.get('brand_id'):
             brand_id = request.GET.get('brand_id')
             condition += ' AND products_brand.id = %s ' % brand_id
+            search_query+="&brand_id="+brand_id
         if request.GET.get('min_price'):
             min_price = request.GET.get('min_price')
             condition += ' AND products_product.product_price >= %s ' % min_price
+            search_query+="&min_price="+min_price
         if request.GET.get('max_price'):
             max_price = request.GET.get('max_price')
             condition += ' AND products_product.product_price <= %s ' % max_price
+            search_query+="&max_price="+max_price
         if request.GET.get('order'):
             order = request.GET.get('order')
             condition += ' ORDER BY %s ' % order
-
+            search_query+="&order="+order
         query = 'SELECT * from '+table+brand_join_cond+sub_cat_join_cond+cat_join_cond+condition
         print(query)
         search_product_list = Product.objects.raw(query)
 
 
         # search_product_list = Product.objects.filter(product_name__icontains=product_name)
-        paginator = Paginator(search_product_list, 12)
+        paginator = Paginator(search_product_list, 8)
         page_number = request.GET.get('page')
         search_product_list = paginator.get_page(page_number)
         context = {
@@ -284,7 +291,8 @@ def displaySearchPage(request):
             'cat_list' : cat_list,
             'sub_cat_list' : sub_cat_list,
             'brands_list' : brands_list,
-            'serach_mode' : 'true'
+            'serach_mode' : 'true',
+            'search_query' : search_query
         }
         return render(request, 'products/search.html', context)
 
