@@ -37,7 +37,7 @@ class Product(models.Model):
     product_amount = models.IntegerField()
     product_rate = models.IntegerField()
     product_desc = models.TextField(max_length=500,null=True, blank=True)
-    product_details = models.CharField(max_length=200000)
+    product_details = models.CharField(max_length=200000,null=True, blank=True)
     image1 = models.ImageField(
         upload_to="product_imgs", default="product_imgs/empty.png"
     )
