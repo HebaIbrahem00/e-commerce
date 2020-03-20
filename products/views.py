@@ -148,7 +148,7 @@ def displayProductDetails(request, product_id):
 
 
         #the template it will render to
-        template = 'products/extend.html'
+        template = 'products/product-details.html'
 
 
         #check if the form sent from template method is post
