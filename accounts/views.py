@@ -112,6 +112,13 @@ def edit_profile(request):
         args['form'] = form
         args['profile_form'] = profile_form
         return render(request, 'accounts/edit_profile.html', args)
+def view_profile(request, pk=None):
+    if pk:
+        user = User.objects.get(pk=pk)
+    else:
+        user = request.user
+    args = {'user': user}
+    return render(request, 'accounts/view_profile.html', args)
  
 def delete_user(self):
     self.user.delete()
