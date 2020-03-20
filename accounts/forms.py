@@ -14,14 +14,14 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', )
- class EditProfileForm(ModelForm):
-    class Meta:
+class EditProfileForm(ModelForm):
+     class Meta:
         model = User
         fields = (
             'email',
             'first_name',
             'last_name'
-        )
+            )
 
 
 class ProfileForm(ModelForm):

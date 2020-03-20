@@ -1,21 +1,7 @@
 from django.db import models
 from products.models import Product
 from django.utils import timezone
-
-class User(models.Model):
-    firstName = models.CharField(null=False, max_length=20)
-    last_name = models.CharField(null=False, max_length=20)
-    email = models.EmailField(editable="true", null="false")
-    phone = models.CharField(max_length=11, editable="true")
-    gender = models.CharField(max_length=20)
-    birthDate = models.DateField()
-    address1 = models.TextField(editable="true")
-    address2 = models.TextField(editable="true")
-    creditNumber = models.CharField(max_length=19, editable="true")
-    image = models.ImageField(upload_to="user_imgs")
-
-    def _str_(self):
-        return self.firstName
+from django.contrib.auth.models import User
 
 class Favourite(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -49,7 +35,7 @@ class Comments(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     Comment = models.CharField(max_length=250)
-    Date = models.DateTimeField(null=False)
+    Date = models.DateTimeField(null=False,default=timezone.now)
     class Meta:
         unique_together = ['user', 'product', 'Comment']
     
