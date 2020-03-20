@@ -431,8 +431,13 @@ def addToCart(request):
     product_id = request.GET.get("product_id")
     userid = request.user.id
     qty=1
-    cart = Cart(cartProduct_id=product_id,cartUser_id=userid,quantity=1)
+    if request.GET.get("qty"):
+        qty=request.GET.get("qty")
+       
+    cart = Cart(cartProduct_id=product_id,cartUser_id=userid,quantity=qty)
     cart.save()
+    return redirect("cart:cartPage")
+
 
 def addtofav(request):
     _product_id = request.GET.get("product_id")

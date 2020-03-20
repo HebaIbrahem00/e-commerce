@@ -244,13 +244,22 @@
                             <!--Card footer-->
                             <div class="card-footer" style="overflow: auto">
                                 <span class="float-left">{{ product.product_price }}$</span>
+                                {% if user.is_authenticated %}
                                 <span class="float-right">
-                                    <a href="/products/product/{{ product.id }}" data-toggle="tooltip"
-                                        data-placement="top" title="Add To Cart"><i
-                                            class="fas fa-shopping-cart mr-3"></i></a>
-                                    <a href="/products/product/{{ product.id }}" class="active" data-toggle="tooltip"
-                                        data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a>
+                                    <form action="/products/addtocart" method="GET" style="display: inline;">
+                                        <input type="hidden" name="product_id" value="{{ product.id }}">
+                                        <input type="hidden" name="qty">
+                                        <button class="add-to-cart-btn" value="qtyOf{{ product.id }}"
+                                            data-toggle="tooltip" data-placement="top" title="Add To Cart"><i
+                                                class="fas fa-shopping-cart mr-3" onclick="specifyQty()"></i></button>
+                                    </form>
+                                    <form action="/products/addtofav" method="GET" style="display: inline;">
+                                        <input type="hidden" name="product_id" value="{{ product.id }}">
+                                        <button class="active " data-toggle="tooltip" data-placement="top"
+                                            title="Add to Wishlist"><i class="fas fa-heart"></i></button>
+                                    </form>
                                 </span>
+                                {% endif %}
                             </div>
 
                         </div>
