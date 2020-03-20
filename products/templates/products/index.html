@@ -314,19 +314,20 @@
                             <!--Card footer-->
                             <div class="card-footer" style="overflow: auto">
                                 <span class="float-left">{{ product.product_price }}$</span>
-                                
+
                                 {% if user.is_authenticated %}
                                 <span class="float-right">
-                                    <form action="/products/addtocart" method="GET">
+                                    <form action="/products/addtocart" method="GET" style="display: inline;">
                                         <input type="hidden" name="product_id" value="{{ product.id }}">
-                                        <input type="hidden" id="qtyOf{{ product.id }}" >
+                                        <input type="hidden" id="qtyOf{{ product.id }}">
                                         <button class="add-to-cart-btn" value="qtyOf{{ product.id }}"
                                             data-toggle="tooltip" data-placement="top" title="Add To Cart"><i
                                                 class="fas fa-shopping-cart mr-3" onclick="specifyQty()"></i></button>
-
-                                        <button href="/products/product/{{ product.id }}" class="active"
-                                            data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><i
-                                                class="fas fa-heart"></i></button>
+                                    </form>
+                                    <form action="/products/addtofav" method="GET" style="display: inline;">
+                                        <input type="hidden" name="product_id" value="{{ product.id }}">
+                                        <button class="active" data-toggle="tooltip" data-placement="top"
+                                            title="Add to Wishlist"><i class="fas fa-heart"></i></button>
                                     </form>
                                 </span>
                                 {% endif %}
@@ -383,7 +384,7 @@
         // console.log(e);
         // e.preventDefault()
         // var qty = prompt("enter the quantity");
-        
+
         // document.getElementsByName["qty"]
 
     }

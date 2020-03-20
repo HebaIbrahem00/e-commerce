@@ -22,6 +22,7 @@ from user.models import Reviews
 from django.core import serializers
 from django.http import JsonResponse
 from cart.models import Cart
+from cart.models import Favorite
 from django.shortcuts import redirect
 
 
@@ -432,4 +433,10 @@ def addToCart(request):
     qty=1
     cart = Cart(cartProduct_id=product_id,cartUser_id=userid,quantity=1)
     cart.save()
-    return redirect("cart:cartPage")
+
+def addtofav(request):
+    _product_id = request.GET.get("product_id")
+    userid = request.user.id
+    fav = Favorite(user_id=userid,product_id=_product_id)
+    fav.save()
+    return redirect("cart:userFavorites")
