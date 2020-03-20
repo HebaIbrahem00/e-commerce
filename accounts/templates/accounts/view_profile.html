@@ -12,12 +12,8 @@
    </div>
    {% else %}
    <div>
-      {% if user.Profile.gender == 'M' %}
       <img src="/media/male-avatar-profile-picture-vector.jpg" width="240" alt="Image Not Found">
-      {% else %}
-      <img src="/media/female.jpeg" width="240" alt="Image Not Found">
    </div>
-   {% endif %}
    {% endif %}
    <p>Username: {{ user }}</p>
    <p>First name: {{ user.first_name }}</p>
