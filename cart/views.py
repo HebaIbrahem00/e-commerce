@@ -4,9 +4,10 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.template import loader
 from cart.models import Cart ,Favorite
-from user.models import User
+from django.contrib.auth.models import User
+from accounts.models import Profile
 from products.models import Product
-# from purchase import templates
+from purchase.models import Visa , Purchase 
 from .forms import CheckoutForm
 from django.http import HttpResponse, HttpResponseNotFound, Http404,  HttpResponseRedirect
 
@@ -70,23 +71,64 @@ def moveToCart(request , pid):
 
 
 def showPurchase(request):
-    user=request.user
-    cart=Cart.objects.filter(cartUser__id=user.id)
-    cartlength=len(cart)
+    user =request.user
+    cart =Cart.objects.filter(cartUser__id=user.id)
+    cartlength =len(cart)
+    visa = Visa()
+    order = Purchase()
+  
     if request.method == "GET":
+
         form = CheckoutForm()
         return render(request ,'purchase.html', {'form':form,'cart':cart,'cartLen':cartlength})
         
     elif request.method == "POST":
+
+        print("entered post")            
         form =CheckoutForm(request.POST or None)
-        print ( form.cleaned_data)
-        return redirect("cart:purchasePage") 
+
+        if form.is_valid():
+            
+            print("test" +form.cleaned_data)
+           
+            order.cartUser =user
+            order.cart = cart
+
+            address_option =form.cleaned_data.get('address_option')
+            if address_option =='same':
+                address = Profile.objects.filter(user__id=user.id).address1
+                print(address)
+                order.address = address
+            else:
+                address = form.data.get('shipping_address')
+                order.address = address
+                order.address_details = form.data.get('address_details')
+                order.city = form.data.get('city')
+            print(address_option)
+            if form.cleaned_data.get('save_new_address'):
+                order.save()
 
 
-        
+            payment =form.cleaned_data.get('payment_option')
+            if payment =='cash':
+                order.cash = True
+                order.visaInfo = None
+            else:
+                order.cash = False
+                visa.card_owner = form.cleaned_data.get('card_owner')
+                visa.card_number = form.cleaned_data.get('card_number')
+                visa.card_expiry = form.cleaned_data.get('card_expiry')
+                visa.cvv = form.cleaned_data.get('cvv')
 
-        
+            if form.cleaned_data.get('save_card_info'):
+                visa.save()
 
-#def goPurchase(request,cart):
 
-#    return redirect("cart:purchasePage") 
+        return render(request ,'orderReady.html', {'cart':order.cart})
+
+    else:
+        print("form ain't valid??")
+        #return redirect("cart:purchasePage") #here we may render the order page when we create one
+
+
+

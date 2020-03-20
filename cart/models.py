@@ -1,7 +1,8 @@
 from django.db import models
 from products.models import Product
-from django.contrib.auth.models import User
+from user.models import User
 from django.urls import reverse
+
 
 
 class Cart(models.Model):
@@ -20,9 +21,12 @@ class Cart(models.Model):
 
         return reverse("cart:moveToFav",kwargs={'id': self.cartProduct.id })
 
+    def cart(self):
+        return reverse("cart:purchaseActual",kwargs={'cart':self})    
+
 
 class Favorite(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE ,default=1)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     addDate = models.DateField(auto_now=True)
 
