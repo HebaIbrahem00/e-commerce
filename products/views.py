@@ -366,3 +366,8 @@ def get_brand_details(request):
     ser_brands = serializers.serialize("json", brands)
     return JsonResponse(ser_brands, safe=False, content_type="application/json")
 
+def get_all_cat_details(request):
+    categories = list(Category.objects.all())
+    ser_Categories = serializers.serialize("json", categories)
+    return JsonResponse(ser_Categories, safe=False, content_type="application/json")
+
