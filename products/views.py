@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.db import connection
 from django.db import IntegrityError
+from django.contrib import messages
 from django.template import RequestContext
 from django.template import loader
 from products.models import Product
@@ -179,6 +180,7 @@ def displayProductDetails(request, product_id):
                     new_form.save()
                     return HttpResponseRedirect(request.path_info)
             except IntegrityError:
+                messages.info(request , "Sorry This Comment Already Exists By You")
                 return HttpResponseRedirect(request.path_info)
             #geeting an isntance of reviews form and saving the info of the reviews form and redirect to the same page again
             try:
@@ -191,6 +193,7 @@ def displayProductDetails(request, product_id):
                     new_reveiw_form.save()
                     return HttpResponseRedirect(request.path_info)
             except IntegrityError:
+                messages.info(request , "Sorry You Have Already Made Your Reveiew Before")
                 return HttpResponseRedirect(request.path_info)
                 
             #geeting an isntance of add_to_cart form and saving the info of add_to_cart form and redirect to the same page again
