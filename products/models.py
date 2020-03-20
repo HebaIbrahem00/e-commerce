@@ -29,13 +29,20 @@ class Brand(models.Model):
 
 
 class Product(models.Model):
+    RATING_CHOICES = (
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5'),
+    )
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
     product_name = models.CharField(max_length=50)
     product_model = models.CharField(max_length=50, null=True, blank=True)
     product_color = models.CharField(max_length=50)
     product_price = models.IntegerField()
     product_amount = models.IntegerField()
-    product_rate = models.IntegerField()
+    product_rate = models.IntegerField(choices=RATING_CHOICES)
     product_desc = models.TextField(max_length=500,null=True, blank=True)
     product_details = models.TextField()
     image1 = models.ImageField(
