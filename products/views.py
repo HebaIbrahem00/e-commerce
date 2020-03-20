@@ -21,6 +21,9 @@ from user.models import Comments
 from user.models import Reviews
 from django.core import serializers
 from django.http import JsonResponse
+from cart.models import Cart
+from django.shortcuts import redirect
+
 
 
 def display_home_page(request):
@@ -423,3 +426,10 @@ def get_all_cat_details(request):
     ser_Categories = serializers.serialize("json", categories)
     return JsonResponse(ser_Categories, safe=False, content_type="application/json")
 
+def addToCart(request):
+    product_id = request.GET.get("product_id")
+    userid = request.user.id
+    qty=1
+    cart = Cart(cartProduct_id=product_id,cartUser_id=userid,quantity=1)
+    cart.save()
+    return redirect("cart:cartPage")

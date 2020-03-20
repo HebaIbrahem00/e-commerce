@@ -2,18 +2,19 @@
 {% load static %}
 {% block body %}
 <style>
+    .input-group-text {
 
-.input-group-text{
+        font-weight: inherit;
+        padding: 5px;
+    }
 
-    font-weight:inherit ;
-    padding: 5px;
-}
-.input-group{
-margin-bottom: 25px !important;
-}
-.form-control{
-    font-size: 13px;
-}
+    .input-group {
+        margin-bottom: 25px !important;
+    }
+
+    .form-control {
+        font-size: 13px;
+    }
 </style>
 <div class="container">
     <!--slider-->
@@ -187,10 +188,9 @@ margin-bottom: 25px !important;
         <div class="col-lg-3">
             <h4 style="font-weight: bold;">Search</h4>
             <form action="/products/search/" method="GET">
-                <input class="form-control " name="product_name" type="text"
-                    placeholder="Search" aria-label="Search"
+                <input class="form-control " name="product_name" type="text" placeholder="Search" aria-label="Search"
                     value="{{product_name}}">
-                    <input class="mb-4" type="checkbox" name="in_product_table">Only By Product Name
+                <input class="mb-4" type="checkbox" name="in_product_table">Only By Product Name
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -268,7 +268,8 @@ margin-bottom: 25px !important;
                         <option value="product_rate DESC">Highest Rate</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-danger mb-2" style="width: 100%;"><i class="fa fa-search"></i> Search</button>
+                <button type="submit" class="btn btn-danger mb-2" style="width: 100%;"><i class="fa fa-search"></i>
+                    Search</button>
             </form>
         </div>
         <div class="col-lg-9">
@@ -313,13 +314,23 @@ margin-bottom: 25px !important;
                             <!--Card footer-->
                             <div class="card-footer" style="overflow: auto">
                                 <span class="float-left">{{ product.product_price }}$</span>
+                                
+                                {% if user.is_authenticated %}
                                 <span class="float-right">
-                                    <a href="/products/product/{{ product.id }}" data-toggle="tooltip"
-                                        data-placement="top" title="Add To Cart"><i
-                                            class="fas fa-shopping-cart mr-3"></i></a>
-                                    <a href="/products/product/{{ product.id }}" class="active" data-toggle="tooltip"
-                                        data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a>
+                                    <form action="/products/addtocart" method="GET">
+                                        <input type="hidden" name="product_id" value="{{ product.id }}">
+                                        <input type="hidden" id="qtyOf{{ product.id }}" >
+                                        <button class="add-to-cart-btn" value="qtyOf{{ product.id }}"
+                                            data-toggle="tooltip" data-placement="top" title="Add To Cart"><i
+                                                class="fas fa-shopping-cart mr-3" onclick="specifyQty()"></i></button>
+
+                                        <button href="/products/product/{{ product.id }}" class="active"
+                                            data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><i
+                                                class="fas fa-heart"></i></button>
+                                    </form>
                                 </span>
+                                {% endif %}
+
                             </div>
 
                         </div>
@@ -367,4 +378,14 @@ margin-bottom: 25px !important;
         </div>
     </div>
 </div>
+<script>
+    function specifyQty(e) {
+        // console.log(e);
+        // e.preventDefault()
+        // var qty = prompt("enter the quantity");
+        
+        // document.getElementsByName["qty"]
+
+    }
+</script>
 {% endblock body %}

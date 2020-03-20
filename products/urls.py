@@ -16,4 +16,5 @@ urlpatterns = [
     path('shop/', views.display_shop_page, name='displaysearchPage'),
     path('ajax/get_sub_cat_details', views.get_sub_cat_details, name='get_sub_cat_details'),
     path('ajax/get_brand_details', views.get_brand_details, name='get_brand_details'),
-    path('ajax/get_all_cat_details', views.get_all_cat_details, name='get_all_cat_details')]
+    path('ajax/get_all_cat_details', views.get_all_cat_details, name='get_all_cat_details'),
+    path('addtocart', views.addToCart, name='get_all_cat_details')]
