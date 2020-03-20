@@ -8,22 +8,23 @@
     <div style="text-align: center;font-size: xx-large;color:blueviolet;font-style: italic;font-family: fantasy;">
         Welcome to your Cart
     </div>
+    
     {% if userCart %}
- 
-  
-    <div class="table-responsive  d-inline-flex p-2 text-center" style="margin-left: 300x; " >
+    <div class="container-lg " style="margin-left: 0px; " >
+
         
-        <table class="table table-bordered"  style="margin-left:300px;margin-right:300px;" >
+        <table class="table table-bordered"  style="margin-left:0px;margin-right:300px;" >
             
             <thead class="thead-dark">
             <tr>
                 <th>Product Name</th>
                 <th>Product Image</th>
                 <th>Date added</th>
-                <th> Price  </th>
-                <th>          </th>
+                <th> Price</th>
+                <th> </th>
             </tr>
                </thead>
+
                <tbody class="table-hover"> 
                 {% for p in userCart %}
             <tr>
@@ -39,17 +40,17 @@
                {% endfor %}
 
             </tbody>
+            
         </table>
           
-      </div>
+      
  
-  {% comment  %}
-   <button  class="btn btn-dark btn-circle btn-xl"  style="position:relative;width:200px;height:150px; margin-left:800px;border-radius:150px;"> <a href={% url 'purchaseActual' %} >Buy Cart Elements with total cost= {{total}} </a></button> {% endcomment %}
-     
-      <form class="form-inline my-2 my-lg-0" action="{% url 'cart:purchasePage' %}" method="GET">  
-      <input type="submit" value="Buy Cart Elements with total cost= {{total}} l.e" class="btn btn-dark btn-circle btn-xl"  style="position:relative;width:200px;height:100px; margin-left:800px;" />
+  
+      <form class=""   action="{% url 'cart:purchasePage' %}" method="GET">  
+      <input type="submit" value="Buy Cart Elements with total cost= {{total}} l.e" class="btn btn-dark btn-circle "  style="width:200px;height:100px; margin-left:400px" />
       </form>
 
+     </div>
 
        {% else %} 
   <div style="text-align: center;font-size: xx-large;color:blueviolet;font-style: italic;font-family: fantasy;">
