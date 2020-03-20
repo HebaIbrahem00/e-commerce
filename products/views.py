@@ -164,7 +164,25 @@ def displayProductDetails(request, product_id):
             user = User.objects.get(id=request.user.id)
         except User.DoesNotExist:
             user = None
-
+            
+            
+        #update product_rate in product table    
+        totalReviews = connection.cursor()
+        #get the average of all reviews and counts of all reviews
+        totalReviews.execute(
+            '''select avg(Review) from user_reviews where product_id= %s''', [product_id])
+        #fetch the first row of the result set
+        rowtotal = totalReviews.fetchone()
+        #average o all reviews 
+        resultsAverage = rowtotal[0]
+        
+        updateReviews = connection.cursor()
+        updateReviews.execute('''update products_product set product_rate=%s where id= %s''', [resultsAverage,product_id])
+        rowReview = updateReviews.fetchone()
+        print(rowReview)
+    
+    
+      
 
 
         #the template it will render to
