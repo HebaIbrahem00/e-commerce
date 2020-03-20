@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.db import connection
+from django.db import IntegrityError
 from django.template import RequestContext
 from django.template import loader
 from products.models import Product
@@ -168,31 +169,41 @@ def displayProductDetails(request, product_id):
         #check if the form sent from template method is post
         if request.method == 'POST':
             #geeting an isntance of comments form and saving the info of the comments form and redirect to the same page again
-            form = CommentsForm(request.POST)
-            if form.is_valid():
-                new_form = form.save(commit=False)
-                new_form.user = user
-                new_form.product = product
-                new_form.Comment = comment
-                new_form.save()
+            try:
+                form = CommentsForm(request.POST)
+                if form.is_valid():
+                    new_form = form.save(commit=False)
+                    new_form.user = user
+                    new_form.product = product
+                    new_form.Comment = comment
+                    new_form.save()
+                    return HttpResponseRedirect(request.path_info)
+            except IntegrityError:
                 return HttpResponseRedirect(request.path_info)
             #geeting an isntance of reviews form and saving the info of the reviews form and redirect to the same page again
-            review_form = ReviewsForm(request.POST)
-            print(ReviewsForm)
-            if review_form.is_valid():
-                new_reveiw_form = review_form.save(commit=False)
-                new_reveiw_form.user = user
-                new_reveiw_form.product = product
-                new_reveiw_form.save()
+            try:
+                review_form = ReviewsForm(request.POST)
+                if review_form.is_valid():
+                    new_reveiw_form = review_form.save(commit=False)
+                    new_reveiw_form.user = user
+                    new_reveiw_form.product = product
+                    query = 'select avg(Reveiws) from user_reviews where pro'
+                    new_reveiw_form.save()
+                    return HttpResponseRedirect(request.path_info)
+            except IntegrityError:
                 return HttpResponseRedirect(request.path_info)
+                
             #geeting an isntance of add_to_cart form and saving the info of add_to_cart form and redirect to the same page again
-            add_to_cart_form = AddToCartForm(request.POST)
-            if add_to_cart_form.is_valid():
-                new_add_to_cart = add_to_cart_form.save(commit=False)
-                new_add_to_cart.cartUser = user
-                new_add_to_cart.cartProduct = product
-                new_add_to_cart.quantity = CartQuantity
-                new_add_to_cart.save()
+            try:
+                add_to_cart_form = AddToCartForm(request.POST)
+                if add_to_cart_form.is_valid():
+                    new_add_to_cart = add_to_cart_form.save(commit=False)
+                    new_add_to_cart.cartUser = user
+                    new_add_to_cart.cartProduct = product
+                    new_add_to_cart.quantity = CartQuantity
+                    new_add_to_cart.save()
+                    return HttpResponseRedirect(request.path_info)
+            except IntegrityError:
                 return HttpResponseRedirect(request.path_info)
         else:
             form = CommentsForm()
