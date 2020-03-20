@@ -92,3 +92,34 @@ def profile(request , slug):
     # profile = get_object_or_404(slug=slug)
     # context = {'profile' : profile}
     # return render(request ,'profile.html' ,context)
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)  # request.FILES is show the selected image or file
+
+        if form.is_valid() and profile_form.is_valid():
+            user_form = form.save()
+            custom_form = profile_form.save(False)
+            custom_form.user = user_form
+            custom_form.save()
+            return redirect('accounts:view_profile')
+    else:
+        form = EditProfileForm(instance=request.user)
+        profile_form = ProfileForm(instance=request.user.profile)
+        args = {}
+        # args.update(csrf(request))
+        args['form'] = form
+        args['profile_form'] = profile_form
+        return render(request, 'accounts/edit_profile.html', args)
+ 
+def delete_user(self):
+    self.user.delete()
+    return redirect('/products')  
+
+def delete_profile(request):
+    user = request.user
+    user.is_active = False
+    user.save()
+    messages.success(request, 'Profile successfully disabled.')
+    return redirect('/products')      

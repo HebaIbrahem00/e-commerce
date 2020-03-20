@@ -6,6 +6,9 @@ from django.template import loader
 from cart.models import Cart ,Favorite
 from user.models import User
 from products.models import Product
+from purchase import templates
+from .forms import CheckoutForm
+from django.http import HttpResponse, HttpResponseNotFound, Http404,  HttpResponseRedirect
 
 
 
@@ -64,3 +67,26 @@ def moveToCart(request , pid):
     Favorite.objects.filter(product__id=pid).delete()
 
     return redirect("cart:userFavorites")  
+
+
+def showPurchase(request):
+    user=request.user
+    cart=Cart.objects.filter(cartUser__id=user.id)
+    cartlength=len(cart)
+    if request.method == "GET":
+        form = CheckoutForm()
+        return render(request ,'purchase.html', {'form':form,'cart':cart,'cartLen':cartlength})
+        
+    elif request.method == "POST":
+        form =CheckoutForm(request.POST or None)
+        print ( form.cleaned_data)
+        return redirect("cart:purchasePage") 
+
+
+        
+
+        
+
+#def goPurchase(request,cart):
+
+#    return redirect("cart:purchasePage") 

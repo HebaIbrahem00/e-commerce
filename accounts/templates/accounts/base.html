@@ -67,7 +67,23 @@
 
 
   </style>
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 
+<!-- Bootstrap -->
+<link type="text/css" rel="stylesheet" href="{% static '/css/css/bootstrap.min.css' %}" />
+
+<!-- Slick -->
+<link type="text/css" rel="stylesheet" href="{% static '/css/css/slick.css' %}" />
+<link type="text/css" rel="stylesheet" href="{% static '/css/css/slick-theme.css' %}" />
+
+<!-- nouislider -->
+<link type="text/css" rel="stylesheet" href="{% static '/css/css/nouislider.min.css' %}" />
+
+<!-- Font Awesome Icon -->
+<link rel="stylesheet" href="{% static '/css/css/font-awesome.min.css' %}">
+
+<!-- Custom stlylesheet -->
+<link type="text/css" rel="stylesheet" href="{% static '/css/css/style.css'  %}" />
 </head>
 
 <body>
@@ -78,7 +94,7 @@
     <div class="container">
 
       <!-- Brand -->
-      <a class="navbar-brand waves-effect" href="/">
+      <a class="navbar-brand waves-effect" href="/" >
         <strong class="blue-text">SOUQ STORE</strong>
       </a>
 
@@ -129,8 +145,8 @@
         <ul class="navbar-nav nav-flex-icons">
           {% if user.is_authenticated %}
           <li class="nav-item">
-            <a class="nav-link waves-effect" href="/cart">
-              <!-- <span class="badge red z-depth-1 mr-1"> 1 </span> -->
+            <a class="nav-link waves-effect">
+              <span class="badge red z-depth-1 mr-1"> 1 </span>
               <i class="fas fa-shopping-cart"></i>
               <span class="clearfix d-none d-sm-inline-block"> Cart </span>
             </a>
@@ -143,6 +159,7 @@
               <i class="fas fa-user-circle"></i>{{user.username}}
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+<<<<<<< HEAD
               <a class="dropdown-item" href="/accounts/view_profile">Profile</a>
               <a class="dropdown-item" href="/accounts/view_profile/edit_profile/">Edit Profile</a>
               <a class="dropdown-item" href="/accounts/password_change">Change Password</a>
@@ -154,6 +171,29 @@
                 <!-- <span class="badge red z-depth-1 mr-1"> 1 </span> -->
                 <i class="fas fa-heart"></i>
                 <span class="clearfix d-none d-sm-inline-block">My Favourites</span>
+=======
+              <a class="dropdown-item" href="/accounts/view_profile"><i class="fas fa-user"></i>Profile</a>
+              <a class="dropdown-item" href="/accounts/view_profile/edit_profile/">
+                <i class="fas fa-edit"></i>Edit Profile</a>
+              <a class="dropdown-item" href="/accounts/password_change">
+                <i class="fa fa-key" aria-hidden="true"></i>Change Password</a>
+              <a href="/accounts/logout" class="nav-link border border-light rounded waves-effect" >
+                <i class="fas fa-sign-out-alt mr-2"></i>Logout
+              </a>
+              <a class="dropdown-item" href="/accounts/delete_user">
+                <i class="far fa-user-times"></i>delete Account
+              </a>
+              <a href="/accounts/logout" class="nav-link border border-light rounded waves-effect" >
+                <i class="fas fa-ban"></i>Deactivate
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Your Order</a>
+              <a class="dropdown-item" href="#">Track My Order</a>
+              <a class="nav-link waves-effect">
+                <span class="badge red z-depth-1 mr-1"> 1 </span>
+                <i class="fas fa-shopping-cart"></i>
+                <span class="clearfix d-none d-sm-inline-block">Fav Cart</span>
+>>>>>>> 86af7cdce8a4fc44e50f2f6a3da8797161212422
               </a>
               <a href="/accounts/logout" class="nav-link border border-light rounded waves-effect">
                 <i class="fas fa-sign-out-alt mr-2"></i>Logout
@@ -340,6 +380,12 @@
         }
     }
   </script>
+  <script src="{% static '/js/js/jquery.min.js' %}"></script>
+	<script src="{% static '/js/js/bootstrap.min.js' %}"></script>
+	<script src="{% static '/js/js/slick.min.js' %}"></script>
+	<script src="{% static '/js/js/nouislider.min.js' %}"></script>
+	<script src="{% static '/js/js/jquery.zoom.min.js' %}"></script>
+	<script src="{% static '/js/js/main.js' %}"></script>
 </body>
 
 </html>
