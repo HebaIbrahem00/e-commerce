@@ -225,6 +225,8 @@
                                         {% endfor %}
                                     </select>
                                 </div>
+
+                                <input id="min_range" class="multi-range" type="range" max="5000" value="0" oninput="changeMin()"/>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Min Price</span>
@@ -235,6 +237,8 @@
                                         <span class="input-group-text">$</span>
                                     </div>
                                 </div>
+
+                                <input id="max_range" class="multi-range" type="range" max="20000" value="20000" oninput="changeMax()"/>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Max Price</span>
@@ -368,5 +372,4 @@
     {% endif %}
     <!--Pagination-->
 </div>
-
 {% endblock body %}

@@ -89,8 +89,9 @@
                     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
                         <div class="card-body">
                             <form action="" method="GET">
-                                <input type="checkbox" name="in_product_table" >search only in products 
-                                <input class="form-control mb-3" name="product_name" type="text" placeholder="Search by product, category, sub category or brand name"
+                                <input type="checkbox" name="in_product_table">search only in products
+                                <input class="form-control mb-3" name="product_name" type="text"
+                                    placeholder="Search by product, category, sub category or brand name"
                                     aria-label="Search" value="{{product_name}}">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
@@ -127,6 +128,8 @@
                                         {% endfor %}
                                     </select>
                                 </div>
+                                <input id="min_range" class="multi-range" type="range" max="5000" value="0"
+                                    oninput="changeMin()" />
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Min Price</span>
@@ -137,6 +140,8 @@
                                         <span class="input-group-text">$</span>
                                     </div>
                                 </div>
+                                <input id="max_range" class="multi-range" type="range" max="20000" value="20000"
+                                    oninput="changeMax()" />
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Max Price</span>
@@ -235,7 +240,7 @@
             <!--/Card-->
 
 
-            
+
         </div>
     </div>
 
