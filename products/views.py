@@ -29,7 +29,7 @@ def display_home_page(request):
     brands_list = Brand.objects.all()
 
     latest_product_list = Product.objects.all()
-    paginator = Paginator(latest_product_list, 8)
+    paginator = Paginator(latest_product_list, 6)
     page_number = request.GET.get("page")
     latest_product_list = paginator.get_page(page_number)
 
@@ -71,7 +71,7 @@ def displayCatDetails(request, cat_id):
     )
 
     search_product_list = Product.objects.raw(query)
-    paginator = Paginator(search_product_list, 8)
+    paginator = Paginator(search_product_list, 6)
     page_number = request.GET.get("page")
     search_product_list = paginator.get_page(page_number)
     context = {
@@ -360,7 +360,7 @@ def displaySearchPage(request):
         search_product_list = Product.objects.raw(query)
 
         # search_product_list = Product.objects.filter(product_name__icontains=product_name)
-        paginator = Paginator(search_product_list, 8)
+        paginator = Paginator(search_product_list, 6)
         page_number = request.GET.get("page")
         search_product_list = paginator.get_page(page_number)
         context = {
