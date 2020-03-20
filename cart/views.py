@@ -6,7 +6,7 @@ from django.template import loader
 from cart.models import Cart ,Favorite
 from user.models import User
 from products.models import Product
-from purchase import templates
+# from purchase import templates
 from .forms import CheckoutForm
 from django.http import HttpResponse, HttpResponseNotFound, Http404,  HttpResponseRedirect
 
