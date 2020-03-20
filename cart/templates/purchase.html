@@ -22,7 +22,7 @@
         
 
             <!--Card Formmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-->
-            <form action="" method="POST" class="card-body ">
+            <form action="{% url 'cart:purchasePage' %}" method="POST" class="card-body "> {% csrf_token %}
             <!-- address optionnnnnnnnnnssss-->
               <h3> Please choose an address option</h3>
               <div class="md-form mb-5">
@@ -83,8 +83,9 @@
 
               <div class="custom-control custom-checkbox">
               <input {% if form.save_new_address.value %} checked {% endif %} type="checkbox" class="custom-control-input" name="save-add-info" >
-             
+            
                 <label class="custom-control-label" for="save-add-info">Save address information for next time</label>
+                 {{form.save_new_address}}
               </div>
 
 
@@ -106,52 +107,58 @@
                 {% endfor %}
               </div>
 
-
-
-
+ <hr>
+          
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="cc-name">Name on card</label>
-                  <input type="text" class="form-control" id="cc-name" placeholder="" required>
+
+                  {{form.card_owner}}
                   <small class="text-muted">Full name as displayed on card</small>
-                  <div class="invalid-feedback">
-                    Name on card is required
-                  </div>
+                  <div class="invalid-feedback">   Name on card is requird </div>
+                
                 </div>
+
                 <div class="col-md-6 mb-3">
-                  <label for="cc-number">Credit card number</label>
-                  <input type="text" class="form-control" id="cc-number" placeholder="" required>
-                  <div class="invalid-feedback">
-                    Credit card number is required
-                  </div>
+                  <label for="cc-number">Card number</label>
+                  {{form.card_number}}
+                    
+                  <div class="invalid-feedback"> Credit card number is required</div>
+
                 </div>
-              </div>
+              
+             </div>
+             
             <div class="row">
                 <div class="col-md-3 mb-3">
                   <label for="cc-expiration">Expiration</label>
-                  <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
+                  
+                  {{form.card_expiry}}
                   <div class="invalid-feedback">
                     Expiration date required
                   </div>
                 </div>
+                
                 <div class="col-md-3 mb-3">
                   <label for="cc-expiration">CVV</label>
-                  <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
+                  {{form.cvv}}
                   <div class="invalid-feedback">
                     Security code required
                   </div>
                 </div>
              
+               </div> 
+               
                
                <div >
-               <input type="checkbox" class="custom-control-input" name="save-card-info"  {% if form.save_card_info.value %} checked {% endif %} >
-                
+               <input type="checkbox" class="custom-control-input" name="save-card-info"  {% if form.save_card_info.value %} checked {% endif %} > 
                 <label class="custom-control-label" for="save-card-info">Save Card Info</label>
-             
+               {{form.save_card_info}}
               </div>
-             </div>
+             
               <hr class="mb-4">
-              <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+              
+              <input type="submit" value="Continue to see your order" class="btn btn-primary btn-lg btn-block">
 
             </form>
 
