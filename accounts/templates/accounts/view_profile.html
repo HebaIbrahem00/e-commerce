@@ -2,26 +2,32 @@
 {% extends "accounts/base.html" %}
 {% load crispy_forms_tags %}
 {% load static %}
+{% block body %}
 
-<!-- Username: {{ user }}  -->
-<div class="container mt-5 mb-5">
-   <div class="row">
-      <div class="col-md-6">
-         <div class="carousel-item active" data-interval="100">
-            <img src={{user.Profile.image.url}} class="d-block w-100" alt="Image Not Found">
-         </div>
-      </div>
+<div class="container">
+   <h1>Profile</h1>
+   {% if user.Profile.image %}
+   <div>
+      <img src="{{ user.profile.image.url }}" width="240" alt="Image Not Found">
    </div>
-   <div class="col-md-6">
-      <h1>First name: {{ user.first_name }}</h1>
-      <h1>Last name: {{ user.last_name }}</h1>
-      <h3>Email: {{ user.email }}</h3>
-      <h3>credit Number: {{ user.Profile.creditNumber }}</h3>
-      <h3>Phone: {{ user.Profile.phone }}</h3>
-      <h1>Address1: {{ user.Profile.address1 }}</h1>
-      <h1>Address2: {{ user.Profile.address2 }}</h1>
+   {% else %}
+   <div>
+      {% if user.Profile.gender == 'M' %}
+      <img src="/media/male-avatar-profile-picture-vector.jpg" width="240" alt="Image Not Found">
+      {% else %}
+      <img src="/media/female.jpeg" width="240" alt="Image Not Found">
    </div>
+   {% endif %}
+   {% endif %}
+   <p>Username: {{ user }}</p>
+   <p>First name: {{ user.first_name }}</p>
+   <p>Last name: {{ user.last_name }}</p>
+   <p>Email: {{ user.email }}</p>
+   <p>Phone: {{ user.userprofile.phone }}</p>
+   <p>Address1: {{ user.Profile.address1 }}</p>
+   <p>Address2: {{ user.Profile.address2 }}</p>
+   <p>Address2: {{ user.Profile.address2 }}</p>
+   <p>credit Number: {{ user.Profile.creditNumber }}</p>
 </div>
-<hr>
 
 {% endblock body %}
