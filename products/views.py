@@ -11,7 +11,7 @@ from .forms import CommentsForm
 from .forms import ReviewsForm
 from .forms import AddToCartForm
 from django.core.paginator import Paginator
-from user.models import User
+from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from products.forms import CommentsForm
 from .forms import ReviewsForm
