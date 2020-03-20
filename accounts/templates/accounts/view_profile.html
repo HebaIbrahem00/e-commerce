@@ -1,0 +1,29 @@
+## accounts/templates/accounts/view_profile.html
+{% extends "accounts/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block body %}
+
+<div class="container">
+   <h1>Profile</h1>
+   {% if user.Profile.image %}
+   <div>
+      <img src="{{ user.profile.image.url }}" width="240" alt="Image Not Found">
+   </div>
+   {% else %}
+   <div>
+      <img src="/media/male-avatar-profile-picture-vector.jpg" width="240" alt="Image Not Found">
+   </div>
+   {% endif %}
+   <p>Username: {{ user }}</p>
+   <p>First name: {{ user.first_name }}</p>
+   <p>Last name: {{ user.last_name }}</p>
+   <p>Email: {{ user.email }}</p>
+   <p>Phone: {{ user.userprofile.phone }}</p>
+   <p>Address1: {{ user.Profile.address1 }}</p>
+   <p>Address2: {{ user.Profile.address2 }}</p>
+   <p>Address2: {{ user.Profile.address2 }}</p>
+   <p>credit Number: {{ user.Profile.creditNumber }}</p>
+</div>
+
+{% endblock body %}

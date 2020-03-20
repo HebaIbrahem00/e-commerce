@@ -1,0 +1,60 @@
+
+{% extends 'accounts/base.html' %}
+
+
+
+{% block body %}
+
+    <div style="text-align: center;font-size: xx-large;color:blueviolet;font-style: italic;font-family: fantasy;">
+        Welcome to your Cart
+    </div>
+    
+    {% if userCart %}
+    <div class="container-lg " style="margin-left: 0px; " >
+
+        
+        <table class="table table-bordered"  style="margin-left:0px;margin-right:300px;" >
+            
+            <thead class="thead-dark">
+            <tr>
+                <th>Product Name</th>
+                <th>Product Image</th>
+                <th>Date added</th>
+                <th> Price</th>
+                <th> </th>
+            </tr>
+               </thead>
+
+               <tbody class="table-hover"> 
+                {% for p in userCart %}
+            <tr>
+                <td> {{ p.cartProduct.product_name }} </td>
+                <td> <img src= {{ p.cartProduct.image1 }} style=" border=3 height:100; width:100;"  > <img/></td>
+                <td>{{ p.addingDate }}</td>
+                <td> {{ p.cartProduct.product_price}} l.e</td>
+                <td>  <a href={{ p.productIdURLdel}} class="btn btn-primary btn-dark"> Delete  </a> <a href={{ p.productIdURLmov}} class="btn btn-primary btn-dark"> Move To favorites </a>  </td>
+                
+            </tr>
+            
+
+               {% endfor %}
+
+            </tbody>
+            
+        </table>
+          
+      
+ 
+  
+      <form class=""   action="{% url 'cart:purchasePage' %}" method="GET">  
+      <input type="submit" value="Buy Cart Elements with total cost= {{total}} l.e" class="btn btn-dark btn-circle "  style="width:200px;height:100px; margin-left:400px" />
+      </form>
+
+     </div>
+
+       {% else %} 
+  <div style="text-align: center;font-size: xx-large;color:blueviolet;font-style: italic;font-family: fantasy;">
+Cart is Empty
+    </div>
+    {% endif %}
+{% endblock %}

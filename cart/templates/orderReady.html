@@ -1,0 +1,31 @@
+{% extends 'accounts/base.html' %}
+
+
+
+{% block body %}
+
+
+
+ <div class="pricing card-deck flex-column flex-md-row mb-3">
+        <div class="card card-pricing text-center px-3 mb-4"  style="padding: .5rem 0;color: #6c757d;">
+            <span class="h6 w-60 mx-auto px-4 py-1 rounded-bottom bg-primary text-white shadow-sm">{{ p.product.get_name }}</span>
+            <div class="bg-transparent card-header pt-4 border-0">
+            
+            </div>
+
+            <div class="card-body pt-0">
+            {% for p in cart %}
+                <ul class="list-unstyled mb-4" style=" padding: .5rem 0;color: #6c757d;">
+                    <li>{{ p.product.product_name }} </li>
+                    <li><Image src= {{ p.product.image1 }} > <Image/></li>
+                    <li>{{ p.addDate }}</li>
+                    <li>Price = {{ p.product.product_price}}</li>
+                </ul>
+                
+             {% endfor %}
+            </div>
+        </div>
+     </div>
+
+
+{% endblock %}
