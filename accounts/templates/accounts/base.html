@@ -23,19 +23,19 @@
 
   <!-- nouislider -->
   <link type="{% static 'text/css" rel="stylesheet" href="css/nouislider.min.css' %}" />
-  <link type="text/css" rel="stylesheet" href="css/style.css" />
+  <link  rel="stylesheet" href="{% static 'css/style.css' %}" />
 
   <!-- Font Awesome Icon -->
   <link rel="{% static 'stylesheet" href="css/font-awesome.min.css' %}">
   <style type="text/css">
-    .rating {
-      padding: 0;
-      color: #ffa000;
-      list-style-type: none;
+   .rating {
+        padding: 0;
+        color: #ffa000;
+        list-style-type: none;
     }
 
     .rating li {
-      display: inline-block;
+        display: inline-block;
     }
 
     html,
@@ -64,24 +64,10 @@
         height: 100vh;
       }
     }
+
+
   </style>
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 
-  <!-- Bootstrap -->
-  <link type="text/css" rel="stylesheet" href="{% static '/css/css/bootstrap.min.css' %}" />
-
-  <!-- Slick -->
-  <link type="text/css" rel="stylesheet" href="{% static '/css/css/slick.css' %}" />
-  <link type="text/css" rel="stylesheet" href="{% static '/css/css/slick-theme.css' %}" />
-
-  <!-- nouislider -->
-  <link type="text/css" rel="stylesheet" href="{% static '/css/css/nouislider.min.css' %}" />
-
-  <!-- Font Awesome Icon -->
-  <link rel="stylesheet" href="{% static '/css/css/font-awesome.min.css' %}">
-
-  <!-- Custom stlylesheet -->
-  <link type="text/css" rel="stylesheet" href="{% static '/css/css/style.css'  %}" />
 </head>
 
 <body>
@@ -118,13 +104,6 @@
               <i class="fas fa-list"></i>Categories
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="nav_cat">
-              {% if cat_list %}
-              {% for cat in cat_list %}
-              <a class="dropdown-item" href="/products/cat/{{ cat.id }}">{{cat.cat_name}}</a>
-              {% endfor %}
-              {% else %}
-              <a>no cat</a>
-              {% endif %}
               <div class="dropdown-divider"></div>
             </div>
           </li>
@@ -139,7 +118,7 @@
           <button class="btn" style="background-color: darkgray;" type="submit"><i class="fa fa-search"></i></button>
         </form>
         <!-- Right -->
-
+        
         <ul class="navbar-nav nav-flex-icons">
           {% if user.is_authenticated %}
           <li class="nav-item">
@@ -293,74 +272,76 @@
   <!-- MDB core JavaScript -->
   <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
   <!-- Initializations -->
-  <script>
+  <script >
     // new WOW().init();
-    function displayAllCat() {
-      cat_div = document.getElementById("nav_cat")
-      cat_div.innerHTML = "";
+    function displayAllCat(){
+      cat_div=document.getElementById("nav_cat")
+      cat_div.innerHTML="";
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-          var categories = JSON.parse(JSON.parse(xhr.response));
-          for (var cat of categories) {
-            // <a class="dropdown-item" href="/products/cat/{{ cat.id }}">{{cat.cat_name}}</a>
-            // var opt = document.createElement('option');
-            // opt.appendChild(document.createTextNode(cat['fields']['sub_cat_name']));
-            // opt.value = sub_cat['pk'];
-            cat_div.innerHTML += `<a class="dropdown-item" href="/products/cat/${cat['fields']['id']}">${cat['fields']['cat_name']}</a>`;
-          }
-        }
-      };
-      xhr.open('GET', '/ajax/get_all_cat_details');
-      xhr.send();
+                if (xhr.readyState === 4) {
+                    var categories = JSON.parse(JSON.parse(xhr.response));
+                    for (var cat of categories) {
+                      console.log(cat);
+                      
+                      // <a class="dropdown-item" href="/products/cat/{{ cat.id }}">{{cat.cat_name}}</a>
+                        // var opt = document.createElement('option');
+                        // opt.appendChild(document.createTextNode(cat['fields']['sub_cat_name']));
+                        // opt.value = sub_cat['pk'];
+                        cat_div.innerHTML+=`<a class="dropdown-item" href="/products/cat/${cat['pk']}">${cat['fields']['cat_name']}</a>`;
+                    }
+                }
+            };
+            xhr.open('GET', '/ajax/get_all_cat_details');
+            xhr.send();
     }
     // Animations initialization
-
+    
     function selectSubCat() {
-      cat_id = document.getElementById("cat_id").value
-      sub_cat_sel = document.getElementsByName("sub_cat_id")[0];
-      brand_sel = document.getElementsByName("brand_id")[0];
-      sub_cat_sel.innerHTML = '<option value=""></option>'
-      brand_sel.innerHTML = '<option value=""></option>'
-      if (cat_id) {
-        data = { 'cat_id': cat_id };
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-          if (xhr.readyState === 4) {
-            var sub_categories = JSON.parse(JSON.parse(xhr.response));
-            for (var sub_cat of sub_categories) {
-              var opt = document.createElement('option');
-              opt.appendChild(document.createTextNode(sub_cat['fields']['sub_cat_name']));
-              opt.value = sub_cat['pk'];
-              sub_cat_sel.appendChild(opt);
-            }
-          }
-        };
-        xhr.open('GET', '/ajax/get_sub_cat_details?cat_id=' + cat_id);
-        xhr.send();
-      }
+        cat_id = document.getElementById("cat_id").value
+        sub_cat_sel = document.getElementsByName("sub_cat_id")[0];
+        brand_sel = document.getElementsByName("brand_id")[0];
+        sub_cat_sel.innerHTML = '<option value=""></option>'
+        brand_sel.innerHTML = '<option value=""></option>'
+        if (cat_id) {
+            data = { 'cat_id': cat_id };
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    var sub_categories = JSON.parse(JSON.parse(xhr.response));
+                    for (var sub_cat of sub_categories) {
+                        var opt = document.createElement('option');
+                        opt.appendChild(document.createTextNode(sub_cat['fields']['sub_cat_name']));
+                        opt.value = sub_cat['pk'];
+                        sub_cat_sel.appendChild(opt);
+                    }
+                }
+            };
+            xhr.open('GET', '/ajax/get_sub_cat_details?cat_id=' + cat_id);
+            xhr.send();
+        }
     }
     function selectBrand() {
-      sub_cat_id = document.getElementById("sub_cat_id").value
-      brand_sel = document.getElementsByName("brand_id")[0];
-      brand_sel.innerHTML = '<option value=""></option>'
-      if (sub_cat_id) {
-        data = { 'sub_cat_id': sub_cat_id };
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-          if (xhr.readyState === 4) {
-            var brands = JSON.parse(JSON.parse(xhr.response));
-            for (var brand of brands) {
-              var opt = document.createElement('option');
-              opt.appendChild(document.createTextNode(brand['fields']['brand_name']));
-              opt.value = brand['pk'];
-              brand_sel.appendChild(opt);
-            }
-          }
-        };
-        xhr.open('GET', '/ajax/get_brand_details?sub_cat_id=' + sub_cat_id);
-        xhr.send();
-      }
+        sub_cat_id = document.getElementById("sub_cat_id").value
+        brand_sel = document.getElementsByName("brand_id")[0];
+        brand_sel.innerHTML = '<option value=""></option>'
+        if (sub_cat_id) {
+            data = { 'sub_cat_id': sub_cat_id };
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    var brands = JSON.parse(JSON.parse(xhr.response));
+                    for (var brand of brands) {
+                        var opt = document.createElement('option');
+                        opt.appendChild(document.createTextNode(brand['fields']['brand_name']));
+                        opt.value = brand['pk'];
+                        brand_sel.appendChild(opt);
+                    }
+                }
+            };
+            xhr.open('GET', '/ajax/get_brand_details?sub_cat_id=' + sub_cat_id);
+            xhr.send();
+        }
     }
     function changeMax() {
       document.getElementsByName("max_price")[0].value = document.getElementById("max_range").value
@@ -370,14 +351,7 @@
       document.getElementsByName("min_price")[0].value = document.getElementById("min_range").value
 
     }
-
   </script>
-  <script src="{% static '/js/js/jquery.min.js' %}"></script>
-  <script src="{% static '/js/js/bootstrap.min.js' %}"></script>
-  <script src="{% static '/js/js/slick.min.js' %}"></script>
-  <script src="{% static '/js/js/nouislider.min.js' %}"></script>
-  <script src="{% static '/js/js/jquery.zoom.min.js' %}"></script>
-  <script src="{% static '/js/js/main.js' %}"></script>
 </body>
 
 </html>
