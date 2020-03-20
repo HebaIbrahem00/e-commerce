@@ -130,42 +130,50 @@ def displayBrandDetails(request, brand_id):
 
 def displayProductDetails(request, product_id):
     try:
+        #get the comment from template(from user)
         comment = request.POST.get('Comment')
+        #get the quantity from template(from user)
         CartQuantity = request.POST.get('quantity')
-        print(CartQuantity)
+        #get rating from template(from user)
+        rating = request.POST.get('rating')
+
+
+
+        #take the product id sent in url in a variable
         product = Product.objects.get(id=product_id)
         try:
+            #try to get the user id if can;t will display the product details
             user = User.objects.get(id=request.user.id)
-            print(user.id)
         except User.DoesNotExist:
             user = None
-        all_comments = Comments.objects.filter(product=product_id)
-        template = 'products/product-page.html'
+
+
+
+        #the template it will render to
+        template = 'products/product-details.html'
+
+
+        #check if the form sent from template method is post
         if request.method == 'POST':
+            #geeting an isntance of comments form and saving the info of the comments form and redirect to the same page again
             form = CommentsForm(request.POST)
             if form.is_valid():
                 new_form = form.save(commit=False)
                 new_form.user = user
                 new_form.product = product
-                for comment_check in all_comments:
-                    print("2")
-                    if comment_check.Comment == comment:
-                        if comment_check.product == product_id:
-                            print("4")
-                            if comment_check.user == user:
-                                print("1")
-                                return HttpResponse("you wrote this comment before")
-                    else:
-                        new_form.Comment = comment
+                new_form.Comment = comment
                 new_form.save()
                 return HttpResponseRedirect(request.path_info)
+            #geeting an isntance of reviews form and saving the info of the reviews form and redirect to the same page again
             review_form = ReviewsForm(request.POST)
+            print(ReviewsForm)
             if review_form.is_valid():
                 new_reveiw_form = review_form.save(commit=False)
                 new_reveiw_form.user = user
                 new_reveiw_form.product = product
                 new_reveiw_form.save()
                 return HttpResponseRedirect(request.path_info)
+            #geeting an isntance of add_to_cart form and saving the info of add_to_cart form and redirect to the same page again
             add_to_cart_form = AddToCartForm(request.POST)
             if add_to_cart_form.is_valid():
                 new_add_to_cart = add_to_cart_form.save(commit=False)
@@ -178,40 +186,82 @@ def displayProductDetails(request, product_id):
             form = CommentsForm()
             review_form = ReviewsForm()
             add_to_cart_form = AddToCartForm()
+
+
+        #all the comments objects in comments realted with the same product    
         all_comments = Comments.objects.filter(product=product_id)
+        #all the reviews objects in reviews realted with the same product    
         all_reviews = Reviews.objects.filter(product=product_id)
+
+
+
+        #create connection to execute a row sql query 
+        cursorAll = connection.cursor()
+        #get the average of all reviews and counts of all reviews
+        cursorAll.execute(
+            '''select avg(Review),count(*) from user_reviews where product_id= %s''', [product_id])
+        #fetch the first row of the result set
+        rowAll = cursorAll.fetchone()
+        #average o all reviews 
+        resultsAverage = rowAll[0]
+        #count of all reviews
+        resultsAll = rowAll[1]
+
+
+        #create connection for review 1 and the count of the review save it to variables
         cursor1 = connection.cursor()
-        cursor1.execute('''select avg(Review) ,count(Review) from user_reviews where Review=1 and product_id= %s''',[product_id])
+        cursor1.execute(
+            '''select avg(Review) ,count(Review) from user_reviews where Review=1 and product_id= %s''', [product_id])
         row1 = cursor1.fetchone()
         results1 = row1[0]
         count_1 = row1[1]
-        print(row1[1])
+
+
+        #create connection for review 2 and the count of the review save it to variables
         cursor2 = connection.cursor()
-        cursor2.execute('''select avg(Review) ,count(Review) from user_reviews where Review=2 and product_id= %s''',[product_id])
+        cursor2.execute(
+            '''select avg(Review) ,count(Review) from user_reviews where Review=2 and product_id= %s''', [product_id])
         row2 = cursor2.fetchone()
         results2 = row2[0]
         count_2 = row2[1]
+
+
+        #create connection for review 3 and the count of the review save it to variables
         cursor3 = connection.cursor()
-        cursor3.execute('''select avg(Review) ,count(Review) from user_reviews where Review=3 and product_id= %s''',[product_id])
+        cursor3.execute(
+            '''select avg(Review) ,count(Review) from user_reviews where Review=3 and product_id= %s''', [product_id])
         row3 = cursor3.fetchone()
         results3 = row3[0]
         count_3 = row3[1]
+
+
+        #create connection for review 4 and the count of the review save it to variables
         cursor4 = connection.cursor()
-        cursor4.execute('''select avg(Review) ,count(Review)from user_reviews where Review=4 and product_id= %s''',[product_id])
+        cursor4.execute(
+            '''select avg(Review) ,count(Review)from user_reviews where Review=4 and product_id= %s''', [product_id])
         row4 = cursor4.fetchone()
         results4 = row4[0]
         count_4 = row4[1]
+
+
+        #create connection for review 5 and the count of the review save it to variables
         cursor5 = connection.cursor()
-        cursor5.execute('''select avg(Review) ,count(Review) from user_reviews where Review=5 and product_id= %s''',[product_id])
+        cursor5.execute(
+            '''select avg(Review) ,count(Review) from user_reviews where Review=5 and product_id= %s''', [product_id])
         row5 = cursor5.fetchone()
         results5 = row5[0]
         count_5 = row5[1]
+
+
+        #send variables to be rendered in template
         context = {
             'form':  form,
             'product': product,
             'review_form': review_form,
             'add_to_cart_form': add_to_cart_form,
             'all_comments': all_comments,
+            'resultsAverage': resultsAverage,
+            'resultsAll': resultsAll,
             'results1': results1,
             'results2': results2,
             'results3': results3,
@@ -222,14 +272,16 @@ def displayProductDetails(request, product_id):
             'count_3': count_3,
             'count_4': count_4,
             'count_5': count_5,
-            'all_reviews' : all_reviews,
-            'user' : user,
-            'product_id' : product_id,
+            'all_reviews': all_reviews,
+            'user': user,
+            'product_id': product_id,
 
         }
+        #rendering templates 
         return render(request, template, context)
+    #ecept of try if there is no products
     except Product.DoesNotExist:
-        return HttpResponse("You're looking for non existing product" )
+        return HttpResponse("You're looking for non existing product")
 
 
 
