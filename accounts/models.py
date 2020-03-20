@@ -10,6 +10,9 @@ import datetime
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    email = models.EmailField(max_length=150)
+    phone = models.CharField(max_length=11, editable="true", blank=True)
+    gender = models.CharField(default='M', max_length=20)
     first_name = models.CharField(max_length=100, blank=True)
     last_name = models.CharField(max_length=100, blank=True)
     email = models.EmailField(max_length=150)
