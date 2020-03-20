@@ -20,7 +20,7 @@
             {% csrf_token %}
              {% csrf_token %}
             {{ form|crispy }}
-            <button type="submit" class="btn btn-success">Login</button>
+            <button type="submit" class="btn btn-danger">Login</button>
         </form>
 
         {# Assumes you setup the password_reset view in your URLconf #}

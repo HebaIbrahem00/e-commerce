@@ -7,7 +7,7 @@
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ profile_form|crispy }}
-       <button type="submit" class="btn btn-success">Edit</button>
+       <button type="submit" class="btn btn-danger">Edit</button>
     </form>
     <br>
 </div>
