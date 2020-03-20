@@ -86,25 +86,25 @@
 					<h2 class="product-name">{{product.product_name}}</h2>
 					<div>
 						<div class="product-rating">
-							{% if resultsAverage == 1%}
+							{% if resultsAverage == 1 or resultsAverage < 2 %}
 							<i class="fa fa-star"></i>
 							<i class="fa fa-star-o"></i>
 							<i class="fa fa-star-o"></i>
 							<i class="fa fa-star-o"></i>
 							<i class="fa fa-star-o"></i>
-							{% elif resultsAverage == 2 %}
+							{% elif resultsAverage == 2 or resultsAverage < 3 %}
 							<i class="fa fa-star"></i>
 							<i class="fa fa-star"></i>
 							<i class="fa fa-star-o"></i>
 							<i class="fa fa-star-o"></i>
 							<i class="fa fa-star-o"></i>
-							{% elif resultsAverage == 3 %}
+							{% elif resultsAverage == 3 or resultsAverage < 4 %} 
 							<i class="fa fa-star"></i>
 							<i class="fa fa-star"></i>
 							<i class="fa fa-star"></i>
 							<i class="fa fa-star-o"></i>
 							<i class="fa fa-star-o"></i>
-							{% elif resultsAverage == 4 %}
+							{% elif resultsAverage == 4 or resultsAverage < 5 %} 
 							<i class="fa fa-star"></i>
 							<i class="fa fa-star"></i>
 							<i class="fa fa-star"></i>
