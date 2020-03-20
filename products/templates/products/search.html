@@ -89,10 +89,9 @@
                     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
                         <div class="card-body">
                             <form action="" method="GET">
-
-                                <input class="form-control mb-3" name="product_name" type="text" placeholder="Search"
+                                <input type="checkbox" name="in_product_table" >search only in products 
+                                <input class="form-control mb-3" name="product_name" type="text" placeholder="Search by product, category, sub category or brand name"
                                     aria-label="Search" value="{{product_name}}">
-
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <label class="input-group-text" for="inputGroupSelect01">category</label>
@@ -112,6 +111,9 @@
                                     <select name="sub_cat_id" id="sub_cat_id" class="custom-select"
                                         onclick="selectBrand()">
                                         <option value=""></option>
+                                        {% for sub_cat in sub_cat_list %}
+                                        <option value="{{sub_cat.id}}">{{sub_cat}}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                                 <div class="input-group mb-3">
@@ -121,7 +123,7 @@
                                     <select name="brand_id" class="custom-select" id="inputGroupSelect01">
                                         <option value=""></option>
                                         {% for brand in brands_list %}
-                                        <option value="{{brand.id}}">{{brand.brand_name}}</option>
+                                        <option value="{{brand.id}}">{{brand.brand_name}} in {{brand.sub_cat}}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -192,9 +194,7 @@
                     <!--Card content-->
                     <div class="card-body card-body-cascade text-center">
                         <!--Category & Title-->
-                        <h5>{{ product.brand.sub_cat.cat }} </h5>
                         <h5> {{ product.brand.sub_cat }} </h5>
-                        <h5> {{ product.brand.brand_name }}</h5>
                         <h4 class="card-title"><strong><a
                                     href="/products/product/{{ product.id }}">{{ product.product_name }} </a></strong>
                         </h4>
@@ -279,7 +279,9 @@
     function selectSubCat() {
         cat_id = document.getElementById("cat_id").value
         sub_cat_sel = document.getElementsByName("sub_cat_id")[0];
+        brand_sel = document.getElementsByName("brand_id")[0];
         sub_cat_sel.innerHTML = '<option value=""></option>'
+        brand_sel.innerHTML = '<option value=""></option>'
         if (cat_id) {
             data = { 'cat_id': cat_id };
             var xhr = new XMLHttpRequest();
