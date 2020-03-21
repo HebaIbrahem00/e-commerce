@@ -23,12 +23,12 @@
 	{% for message in messages %}
 	<div class="alert alert-danger {{ message.tags }} alert-dismissible" role="alert">
 		{{ message }}
-	    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-		<span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    {% endfor %}
-{% endif %}
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	{% endfor %}
+	{% endif %}
 </div>
 <!-- SECTION -->
 <div class="section">
@@ -98,13 +98,13 @@
 							<i class="fa fa-star-o"></i>
 							<i class="fa fa-star-o"></i>
 							<i class="fa fa-star-o"></i>
-							{% elif resultsAverage == 3 or resultsAverage < 4 %} 
+							{% elif resultsAverage == 3 or resultsAverage < 4 %}
 							<i class="fa fa-star"></i>
 							<i class="fa fa-star"></i>
 							<i class="fa fa-star"></i>
 							<i class="fa fa-star-o"></i>
 							<i class="fa fa-star-o"></i>
-							{% elif resultsAverage == 4 or resultsAverage < 5 %} 
+							{% elif resultsAverage == 4 or resultsAverage < 5 %}
 							<i class="fa fa-star"></i>
 							<i class="fa fa-star"></i>
 							<i class="fa fa-star"></i>
@@ -127,13 +127,13 @@
 						<a class="review-link" href="#">{{resultsAll}} Review(s)</a>
 					</div>
 					<div>
-						<h3 class="product-price">{{product.product_price }} 
+						<h3 class="product-price">{{product.product_price }}
 							<!--<del class="product-old-price">$990.00</del></h3>-->
-						{% if product.product_amount > 0 %}
-						<span class="product-available">In Stock</span>
-						{% else %}
-						<span class="product-available">Out Of Stock</span>
-						{% endif %}
+							{% if product.product_amount > 0 %}
+							<span class="product-available">In Stock</span>
+							{% else %}
+							<span class="product-available">Out Of Stock</span>
+							{% endif %}
 					</div>
 					<p>{{product.product_desc}}</p>
 
@@ -161,12 +161,13 @@
 							<button type="submit" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to
 								cart</button>
 						</div>
-						{% endif %}
 					</form>
 					<form action="/products/addtofav" method="GET" style="display: inline;">
 						<input type="hidden" name="product_id" value="{{ product.id }}">
 						<button type="submit" class="primary-btn">Add To wishlist</button>
 					</form>
+					{% endif %}
+
 					<!--<ul class="product-btns">
 						<li><a href="#"><i class="fa fa-heart-o"></i> add to wishlist</a></li>
 						<li><a href="#"><i class="fa fa-exchange"></i> add to compare</a></li>
@@ -174,8 +175,12 @@
 
 					<ul class="product-links">
 						<li>Category:</li>
-						<li><p >{{product.brand.sub_cat.sub_cat_name}}</p></li>
-						<li><p >{{product.brand.sub_cat.cat.cat_name}}</p></li>
+						<li>
+							<p>{{product.brand.sub_cat.sub_cat_name}}</p>
+						</li>
+						<li>
+							<p>{{product.brand.sub_cat.cat.cat_name}}</p>
+						</li>
 					</ul>
 
 					<!--<ul class="product-links">
@@ -424,7 +429,7 @@
 										{{review_form}}
 										<button type="submit" class="primary-btn">Submit Review</button>
 										{% endif %}
-									  </form>
+									</form>
 									<!--<div id="review-form">
 											<div class="input-rating">
 												<span>Your Rating: </span>
@@ -445,36 +450,36 @@
 													</form>
 												</div>
 											</div>-->
-										<!--<form method="POST">
+									<!--<form method="POST">
 											{% csrf_token %}-->
-									   {% if user.is_authenticated %}
-										<form method="POST">
-											{% csrf_token %}
-											<input type="text" name="Comment" class="comment-text" value="" />
-											<button type="submit" class="primary-btn">Add Comment</button>
-										</form>
-									   {% endif %}
-									</div>
+									{% if user.is_authenticated %}
+									<form method="POST">
+										{% csrf_token %}
+										<input type="text" name="Comment" class="comment-text" value="" />
+										<button type="submit" class="primary-btn">Add Comment</button>
+									</form>
+									{% endif %}
 								</div>
-								<!-- /Review Form -->
 							</div>
+							<!-- /Review Form -->
 						</div>
-						<!-- /tab3  -->
 					</div>
-					<!-- /product tab content  -->
+					<!-- /tab3  -->
 				</div>
+				<!-- /product tab content  -->
 			</div>
-			<!-- /product tab -->
 		</div>
-		<!-- /row -->
+		<!-- /product tab -->
 	</div>
-	<!-- /container -->
+	<!-- /row -->
+</div>
+<!-- /container -->
 </div>
 <!-- /SECTION -->
 <script src="{% static '/js/js/jquery.min.js' %}"></script>
-	<script src="{% static '/js/js/bootstrap.min.js' %}"></script>
-	<script src="{% static '/js/js/slick.min.js' %}"></script>
-	<script src="{% static '/js/js/nouislider.min.js' %}"></script>
-	<script src="{% static '/js/js/jquery.zoom.min.js' %}"></script>
-	<script src="{% static '/js/js/main.js' %}"></script>
+<script src="{% static '/js/js/bootstrap.min.js' %}"></script>
+<script src="{% static '/js/js/slick.min.js' %}"></script>
+<script src="{% static '/js/js/nouislider.min.js' %}"></script>
+<script src="{% static '/js/js/jquery.zoom.min.js' %}"></script>
+<script src="{% static '/js/js/main.js' %}"></script>
 {% endblock body %}
