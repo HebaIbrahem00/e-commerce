@@ -32,10 +32,10 @@ class CheckoutForm(forms.Form):
     payment_option = forms.ChoiceField(widget=forms.RadioSelect, choices=PAYMENT_CHOICES)
     save_card_info = forms.BooleanField(required=False)
 
-    card_owner = forms.CharField(max_length=100)
-    card_number = CardNumberField(label='Card Number' ) 
-    card_expiry = CardExpiryField(label='Expiration Date')
-    cvv = SecurityCodeField(label='CVV/CVC')
+    card_owner = forms.CharField(max_length=100,required=False)
+    card_number = CardNumberField(label='Card Number' ,required=False) 
+    card_expiry = CardExpiryField(label='Expiration Date',required=False)
+    cvv = SecurityCodeField(label='CVV/CVC',required=False)
     assert types.get_type('0000000000000000') == types.CC_TYPE_GENERIC
 
 
