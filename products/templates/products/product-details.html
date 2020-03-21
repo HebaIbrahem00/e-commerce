@@ -289,7 +289,8 @@
 													<i class="fa fa-star"></i>
 												</div>
 												<div class="rating-progress">
-													<div style="width: 80%;"></div>
+												    {% load humanize %}
+										                    <div style="width: {{percentage5|floatformat}}%;"></div>
 												</div>
 												<span class="sum">{{count_5}}</span>
 											</li>
@@ -302,7 +303,8 @@
 													<i class="fa fa-star-o"></i>
 												</div>
 												<div class="rating-progress">
-													<div style="width: 60%;"></div>
+													 {% load humanize %}
+										                         <div style="width: {{percentage4|floatformat}}%;"></div>
 												</div>
 												<span class="sum">{{count_4}}</span>
 											</li>
@@ -315,7 +317,8 @@
 													<i class="fa fa-star-o"></i>
 												</div>
 												<div class="rating-progress">
-													<div></div>
+													 {% load humanize %}
+										                         <div style="width: {{percentage3|floatformat}}%;"></div>
 												</div>
 												<span class="sum">{{count_3}}</span>
 											</li>
@@ -328,7 +331,8 @@
 													<i class="fa fa-star-o"></i>
 												</div>
 												<div class="rating-progress">
-													<div></div>
+													 {% load humanize %}
+										                         <div style="width: {{percentage2|floatformat}}%;"></div>
 												</div>
 												<span class="sum">{{count_2}}</span>
 											</li>
@@ -341,7 +345,8 @@
 													<i class="fa fa-star-o"></i>
 												</div>
 												<div class="rating-progress">
-													<div></div>
+													 {% load humanize %}
+										                         <div style="width: {{percentage1|floatformat}}%;"></div>
 												</div>
 												<span class="sum">{{count_1}}</span>
 											</li>
