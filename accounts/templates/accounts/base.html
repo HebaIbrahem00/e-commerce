@@ -64,6 +64,38 @@
     .mdb-color.lighten-3 {
       background-color: black !important;
     }
+
+    .multi-range {
+      width: 100%;
+    }
+
+    .add-to-cart-btn {
+      box-shadow: inset 0px 0px 15px 3px #23395e;
+      background: linear-gradient(to bottom, #2e466e 5%, #415989 100%);
+      background-color: #01010207;
+      border-radius: 17px;
+      border: 1px solid #186ae6;
+      display: inline-block;
+      cursor: pointer;
+      color: #ffffff;
+      font-family: Arial;
+      font-size: 15px;
+      padding: 6px 13px;
+      text-decoration: none;
+      text-shadow: 0px 1px 0px #2c60fc;
+    }
+
+    .add-to-cart-btn:hover {
+      background: linear-gradient(to bottom, #415989 5%, #2e466e 100%);
+      background-color: #b9c3d8;
+      color: black;
+    }
+
+    .add-to-cart-btn:active {
+      position: relative;
+      top: 1px;
+    }
+
   </style>
 
 </head>
@@ -134,7 +166,6 @@
               <i class="fas fa-user-circle"></i>{{user.username}}
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">My Orders</a>
               <a class="nav-link waves-effect" href="/cart/favorites">
                 <!-- <span class="badge red z-depth-1 mr-1"> 1 </span> -->
                 <i class="fas fa-heart"></i>
@@ -181,7 +212,7 @@
 
 
   <main class="mt-5 pt-4">
-    <div class="container dark-grey-text mt-5">
+    <div class="container dark-grey-text mt-3">
       <!--Main layout-->
       {% block body %}
 
