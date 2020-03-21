@@ -459,7 +459,7 @@ CREATE TABLE `products_product` (
   `product_color` varchar(50) NOT NULL,
   `product_price` int(11) NOT NULL,
   `product_amount` int(11) NOT NULL,
-  `product_rate` int(11) NOT NULL,
+  `product_rate` int(11)  NULL,
   `brand_id` int(11) NOT NULL,
   `image1` varchar(100) NOT NULL,
   `image2` varchar(100) NOT NULL,
