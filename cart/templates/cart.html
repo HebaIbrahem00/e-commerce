@@ -29,7 +29,7 @@
                 {% for p in userCart %}
             <tr>
                 <td> {{ p.cartProduct.product_name }} </td>
-                <td> <img src= {{ p.cartProduct.image1 }} style=" border=3 height:100; width:100;"  > <img/></td>
+                <td><a href="/products/product/{{ p.cartProduct.id }}"><Image src= {{ p.cartProduct.image1.url }} style="width: 100px;height: 100px;margin:opx;"> <Image/></a></td>
                 <td>{{ p.addingDate }}</td>
                 <td> {{ p.cartProduct.product_price}} l.e</td>
                 <td>  <a href={{ p.productIdURLdel}} class="btn btn-primary btn-dark"> Delete  </a> <a href={{ p.productIdURLmov}} class="btn btn-primary btn-dark"> Move To favorites </a>  </td>
