@@ -263,6 +263,11 @@ def displayProductDetails(request, product_id):
         row1 = cursor1.fetchone()
         results1 = row1[0]
         count_1 = row1[1]
+        #create precentage number for the bar in the template
+        if results1 == None:
+            percentage1 = 10 * 0
+        else:
+            percentage1 = 10 * results1
 
 
         #create connection for review 2 and the count of the review save it to variables
@@ -272,7 +277,11 @@ def displayProductDetails(request, product_id):
         row2 = cursor2.fetchone()
         results2 = row2[0]
         count_2 = row2[1]
-
+        #create precentage number for the bar in the template
+        if results2 == None:
+            percentage2 = 10 * 0
+        else:
+            percentage2 = 10 * results2
 
         #create connection for review 3 and the count of the review save it to variables
         cursor3 = connection.cursor()
@@ -281,7 +290,11 @@ def displayProductDetails(request, product_id):
         row3 = cursor3.fetchone()
         results3 = row3[0]
         count_3 = row3[1]
-
+        #create precentage number for the bar in the template
+        if results3 == None:
+            percentage3 = 10 * 0
+        else:
+            percentage3 = 10 * results3
 
         #create connection for review 4 and the count of the review save it to variables
         cursor4 = connection.cursor()
@@ -290,6 +303,10 @@ def displayProductDetails(request, product_id):
         row4 = cursor4.fetchone()
         results4 = row4[0]
         count_4 = row4[1]
+        if results4 == None:
+            percentage4 = 10 * 0
+        else:
+            percentage4 = 10 * results4
 
 
         #create connection for review 5 and the count of the review save it to variables
@@ -299,9 +316,14 @@ def displayProductDetails(request, product_id):
         row5 = cursor5.fetchone()
         results5 = row5[0]
         count_5 = row5[1]
+        #create precentage number for the bar in the template
+        if results5 == None:
+            percentage5 = 10 * 0
+        else:
+            percentage5 = 10 * results5
 
 
-        #send variables to be rendered in template
+        #send variables to be rendered or to be used in template
         context = {
             'form':  form,
             'product': product,
@@ -315,6 +337,11 @@ def displayProductDetails(request, product_id):
             'results3': results3,
             'results4': results4,
             'results5': results5,
+            'percentage1': percentage1,
+            'percentage2': percentage2,
+            'percentage3': percentage3,
+            'percentage4': percentage4,
+            'percentage5': percentage5,
             'count_1': count_1,
             'count_2': count_2,
             'count_3': count_3,
