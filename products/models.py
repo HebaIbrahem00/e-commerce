@@ -42,7 +42,7 @@ class Product(models.Model):
     product_color = models.CharField(max_length=50)
     product_price = models.IntegerField()
     product_amount = models.IntegerField()
-    product_rate = models.IntegerField(choices=RATING_CHOICES)
+    product_rate = models.IntegerField(null=True,choices=RATING_CHOICES)
     product_desc = models.TextField(max_length=500,null=True, blank=True)
     product_details = models.TextField(null=True, blank=True)
     image1 = models.ImageField(
