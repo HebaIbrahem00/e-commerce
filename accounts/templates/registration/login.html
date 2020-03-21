@@ -2,7 +2,15 @@
 {% load crispy_forms_tags %}
 {% load static %}
 {% block body %}
-        <h2 class="mb-5 pt-4" >Login</h2>
+<style>
+.btn-danger{
+    width: 100%;
+    margin: 0px;
+}
+
+</style>
+        
+        <h2 class="mb-5 pt-4" style="text-align: center;">Login</h2>
         {% if form.errors %}
         <p  class="mb-5 pt-4">Your username and password didn't match. Please try again.</p>
         {% endif %}
@@ -16,7 +24,7 @@
         {% endif %}
         {% endif %}
 
-        <form method="post" action="{% url 'login' %}">
+        <form method="post" action="{% url 'login' %}" style="width: 300px;margin: auto;">
             {% csrf_token %}
              {% csrf_token %}
             {{ form|crispy }}
