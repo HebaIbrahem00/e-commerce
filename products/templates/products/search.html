@@ -2,6 +2,18 @@
 {% load static %}
 {% block body %}
 <style>
+     html {
+        font-size: 12px;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #333;
+        background-color: #fff;
+    }
     .input-group-text {
 
         font-weight: inherit;
@@ -197,7 +209,7 @@
                         <option value="product_rate DESC">Highest Rate</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary mb-2" style="width: 100%;"><i class="fa fa-search"></i>
+                <button type="submit" class="btn btn-danger mb-2" style="width: 100%;"><i class="fa fa-search"></i>
                     Search</button>
             </form>
         </div>
