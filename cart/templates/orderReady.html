@@ -16,14 +16,22 @@
             <div class="card-body pt-0">
             {% for p in cart %}
                 <ul class="list-unstyled mb-4" style=" padding: .5rem 0;color: #6c757d;">
-                    <li>{{ p.product.product_name }} </li>
-                    <li><Image src= {{ p.product.image1 }} > <Image/></li>
-                    <li>{{ p.addDate }}</li>
-                    <li>Price = {{ p.product.product_price}}</li>
+                    <li>{{ p.cartProduct.product_name }} </li>
+                    <li><Image src= {{ p.cartProduct.image1.url }} style="max-width:100px; max-height:50px;" > <Image/></li>
+                    <li>{{ p.addingDate }}</li>
+                    <li>Price = {{ p.cartProduct.product_price}}</li>
                 </ul>
                 
              {% endfor %}
             </div>
+            <h3> Your Shipping address >>> {{order.address}} </h3>
+             <h3> City >>> {{order.city}} </h3>
+               <h3> Payment Method >>{{payment}} </h3>
+               <hr>
+              <h3> Delivery is within 10 days </h3>
+             
+              
+
         </div>
      </div>
 

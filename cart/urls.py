@@ -17,6 +17,6 @@ urlpatterns = [
     path('movetocart/<pid>', views.moveToCart ,name='moveToCart'),
 
     path('purchase/',views.showPurchase ,name="purchasePage"),
-#    path('GoPurchase/<cart>',views.goPurchase ,name="purchaseActual")
+    path('order/',views.handleForm ,name="orderPage")
 
 ]

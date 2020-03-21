@@ -1,4 +1,5 @@
 from  django import forms
+
 from creditcards import types
 from creditcards.forms import CardNumberField, CardExpiryField, SecurityCodeField
 
@@ -38,16 +39,21 @@ class CheckoutForm(forms.Form):
     assert types.get_type('0000000000000000') == types.CC_TYPE_GENERIC
 
 
-    def clean(self):
+   # def clean (self , *args ,  **kwargs):
+    #    super().clean()
          
-        address_opt = self.cleaned_data.get('address_option')
+     #   address_opt = self.cleaned_data.get('address_option')
+      #  address = self.cleaned_data.get('shipping_address')
+       # print("testtt clean "+address_opt)
 
-        if address_opt =='diff':
+        #if address_opt =='diff' and address == None:
+         #   raise forms.ValidationError({
+          #    'shipping_address': ValidationError(_('Missing title.'), code='required') })
             
-            self.fields['shipping_address'].required = True
+           # self.fields['shipping_address'].required = True
        
 
-        return self.cleaned_data
+       # return super(CheckoutForm , self).clean(*args, **kwargs) 
 
 
 
